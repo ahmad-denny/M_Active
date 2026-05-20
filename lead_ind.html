@@ -1,206 +1,225 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Leading Indicator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Leading Indicator</title>
+  <style>
+    :root {
+      --primary: #0f172a;
+      --bg: #f8fafc;
+      --table-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --text-light: #64748b;
+      --gap-pos: #16a34a;
+      --gap-neg: #dc2626;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 16px;
+      line-height: 1.4;
+    }
+    .dashboard {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: var(--table-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 16px;
+      overflow: hidden;
+    }
+    header { margin-bottom: 16px; }
+    h1 { font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .meta { font-size: 0.85rem; color: var(--text-light); display: flex; gap: 12px; flex-wrap: wrap; }
+    .controls { margin-bottom: 12px; }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      background: #f1f5f9;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 1500px;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 8px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      position: relative;
+    }
+    th {
+      background: var(--primary);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      font-weight: 500;
+      text-align: center;
+      font-size: 12px;
+    }
+    th:first-child, th:nth-child(2), th:nth-child(3) {
+      position: sticky;
+      left: 0;
+      z-index: 25;
+      text-align: left;
+      min-width: 110px;
+    }
+    td:first-child, td:nth-child(2), td:nth-child(3) {
+      position: sticky;
+      left: 0;
+      z-index: 15;
+      background: #fff;
+      text-align: left;
+      font-weight: 500;
+      min-width: 110px;
+    }
+    tr:hover td { background: #f8fafc; }
+    .num { font-family: 'SF Mono', 'Courier New', monospace; font-size: 12px; }
+    .gap-pos { color: var(--gap-pos); font-weight: 600; }
+    .gap-neg { color: var(--gap-neg); font-weight: 600; }
+    .group-border { border-left: 2px solid #cbd5e1; }
+    .empty { color: #94a3b8; }
+    footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-light);
+      padding: 12px;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    code { background: #e2e8f0; padding: 2px 4px; border-radius: 4px; font-size: 11px; }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans antialiased">
-
-    <header class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <h1 class="text-xl font-bold tracking-wide">Leading Indicator Performance</h1>
-            <div class="text-sm bg-blue-700 px-3 py-1.5 rounded-lg shadow-inner text-center w-full sm:w-auto">
-                As of: <span id="asOfDate" class="font-semibold">-</span>
-            </div>
-        </div>
+<body>
+  <div class="dashboard">
+    <header>
+      <h1>📊 Dashboard Leading Indicator</h1>
+      <div class="meta">
+        <span>📅 Per: 18 Mei 2026</span>
+        <span>📆 Hari Kerja: 16</span>
+        <span>🏦 Bank Muamalat</span>
+      </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <div class="controls">
+      <input type="text" id="searchBox" placeholder="🔍 Cari Branch atau Co Branch...">
+    </div>
 
-        <section class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-                <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
-                Filter Parameter
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label for="filterBranchCo" class="block text-xs font-medium text-gray-600 mb-1">BranchCo</label>
-                    <select id="filterBranchCo" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition" onchange="updateBranchOptions()">
-                        <option value="ALL">-- Semua BranchCo --</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="filterBranch" class="block text-xs font-medium text-gray-600 mb-1">Branch</label>
-                    <select id="filterBranch" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition" onchange="renderDashboard()">
-                        <option value="ALL">-- Semua Branch --</option>
-                    </select>
-                </div>
-            </div>
-        </section>
+    <div class="table-wrapper">
+      <table id="indicatorTable">
+        <thead>
+          <tr>
+            <th>Co Branch</th>
+            <th>Branch</th>
+            <th>Type</th>
+            <th class="group-border">MTD CA</th><th>YTD CA</th><th>Target CA</th><th>Gap</th>
+            <th class="group-border">MTD SA</th><th>YTD SA</th><th>Target SA</th><th>Gap</th>
+            <th class="group-border">MTD FU</th><th>YTD FU</th><th>Target FU</th><th>Gap</th>
+            <th class="group-border">MTD Con</th><th>YTD Con</th><th>Target Con</th><th>Gap</th>
+            <th class="group-border">MTD SME</th><th>YTD SME</th><th>Target SME</th><th>Gap</th>
+            <th class="group-border">MTD PH</th><th>YTD PH</th><th>Target PH</th><th>Gap</th>
+            <th class="group-border">MTD MDIN</th><th>YTD MDIN</th><th>Target MDIN</th><th>Gap</th>
+            <th class="group-border">MTD QRIS</th><th>YTD QRIS</th><th>Target QRIS</th><th>Gap</th>
+            <th class="group-border">MTD SLI</th><th>YTD SLI</th><th>Target SLI</th><th>Gap</th>
+            <th class="group-border">MTD CIF</th><th>YTD CIF</th><th>Target CIF</th><th>Gap</th>
+          </tr>
+        </thead>
+        <tbody id="ntbl-data">
+          <!-- ================= DATA NTBL MULAI DARI SINI ================= -->
+          <!-- GANTI HANYA BAGIAN INI SAAT ADA UPDATE DATA EXCEL -->
+          <tr><td>BANDA ACEH</td><td>BANDA ACEH</td><td>KCU D</td><td class="num">0.1</td><td class="num">1.5</td><td class="num">1.2</td><td class="num gap-neg">-1.1</td><td class="num group-border">-0.6</td><td class="num">-5.9</td><td class="num">4.6</td><td class="num gap-neg">-5.2</td><td class="num group-border">-0.7</td><td class="num">-9.0</td><td class="num">9.1</td><td class="num gap-neg">-9.8</td><td class="num group-border">0.01</td><td class="num">1.40</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.00</td><td class="num">-</td><td class="num">-</td><td class="num group-border">16</td><td class="num">136</td><td class="num">112</td><td class="num gap-neg">-96</td><td class="num group-border">30</td><td class="num">243</td><td class="num">256</td><td class="num gap-neg">-226</td><td class="num group-border">3</td><td class="num">21</td><td class="num">64</td><td class="num gap-neg">-61</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">36</td><td class="num">264</td><td class="num">288</td><td class="num gap-neg">-252</td></tr>
+          <tr><td>BANDA ACEH</td><td>KCP LHOKSEUMAWE</td><td>KCP D</td><td class="num">0.2</td><td class="num">-1.6</td><td class="num">1.2</td><td class="num gap-neg">-1.0</td><td class="num group-border">0.2</td><td class="num">-6.2</td><td class="num">4.6</td><td class="num gap-neg">-4.4</td><td class="num group-border">0.3</td><td class="num">-11.4</td><td class="num">9.1</td><td class="num gap-neg">-8.8</td><td class="num group-border">0.36</td><td class="num">5.4</td><td class="num">3.0</td><td class="num gap-neg">-2.7</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">23</td><td class="num">101</td><td class="num">112</td><td class="num gap-neg">-89</td><td class="num group-border">24</td><td class="num">357</td><td class="num">256</td><td class="num gap-neg">-232</td><td class="num group-border">2</td><td class="num">18</td><td class="num">64</td><td class="num gap-neg">-62</td><td class="num group-border">126</td><td class="num">-</td><td class="num">112</td><td class="num gap-pos">14</td><td class="num group-border">45</td><td class="num">440</td><td class="num">288</td><td class="num gap-neg">-243</td></tr>
+          <tr><td>BANDA ACEH</td><td>LANGSA</td><td>KCU NC</td><td class="num">-0.0</td><td class="num">2.1</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">-0.0</td><td class="num">-1.0</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">0.7</td><td class="num">1.6</td><td class="num">9.1</td><td class="num gap-neg">-8.4</td><td class="num group-border">0.36</td><td class="num">1.0</td><td class="num">3.0</td><td class="num gap-neg">-2.7</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">15</td><td class="num">94</td><td class="num">112</td><td class="num gap-neg">-97</td><td class="num group-border">15</td><td class="num">304</td><td class="num">256</td><td class="num gap-neg">-241</td><td class="num group-border">3</td><td class="num">24</td><td class="num">64</td><td class="num gap-neg">-61</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">34</td><td class="num">352</td><td class="num">288</td><td class="num gap-neg">-254</td></tr>
+          <tr><td>BENGKULU</td><td>BENGKULU</td><td>KCU D</td><td class="num">-0.1</td><td class="num">8.2</td><td class="num">1.2</td><td class="num gap-neg">-1.3</td><td class="num group-border">-0.1</td><td class="num">-6.6</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">-1.5</td><td class="num">5.9</td><td class="num">9.1</td><td class="num gap-neg">-10.6</td><td class="num group-border">0.30</td><td class="num">12.4</td><td class="num">3.0</td><td class="num gap-neg">-2.7</td><td class="num group-border">0.00</td><td class="num">2.6</td><td class="num">-</td><td class="num">-</td><td class="num group-border">21</td><td class="num">167</td><td class="num">112</td><td class="num gap-neg">-91</td><td class="num group-border">21</td><td class="num">192</td><td class="num">256</td><td class="num gap-neg">-235</td><td class="num group-border">10</td><td class="num">34</td><td class="num">64</td><td class="num gap-neg">-54</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">36</td><td class="num">259</td><td class="num">288</td><td class="num gap-neg">-252</td></tr>
+          <tr><td>BENGKULU</td><td>KCP CURUP</td><td>KCP D</td><td class="num">-1.7</td><td class="num">-1.9</td><td class="num">1.2</td><td class="num gap-neg">-2.9</td><td class="num group-border">-1.7</td><td class="num">-4.0</td><td class="num">4.6</td><td class="num gap-neg">-6.2</td><td class="num group-border">-1.4</td><td class="num">-6.1</td><td class="num">9.1</td><td class="num gap-neg">-10.6</td><td class="num group-border">0.17</td><td class="num">6.1</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">19</td><td class="num">116</td><td class="num">112</td><td class="num gap-neg">-93</td><td class="num group-border">22</td><td class="num">244</td><td class="num">256</td><td class="num gap-neg">-234</td><td class="num group-border">13</td><td class="num">46</td><td class="num">64</td><td class="num gap-neg">-51</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">26</td><td class="num">328</td><td class="num">288</td><td class="num gap-neg">-262</td></tr>
+          <tr><td>BENGKULU</td><td>KCP ARGA MAKMUR</td><td>KCP NC</td><td class="num">0.2</td><td class="num">-0.6</td><td class="num">1.2</td><td class="num gap-neg">-1.0</td><td class="num group-border">0.2</td><td class="num">1.9</td><td class="num">4.6</td><td class="num gap-neg">-4.4</td><td class="num group-border">1.8</td><td class="num">2.8</td><td class="num">9.1</td><td class="num gap-neg">-7.3</td><td class="num group-border">0.15</td><td class="num">1.8</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">3</td><td class="num">75</td><td class="num">112</td><td class="num gap-neg">-109</td><td class="num group-border">12</td><td class="num">132</td><td class="num">256</td><td class="num gap-neg">-244</td><td class="num group-border">19</td><td class="num">48</td><td class="num">64</td><td class="num gap-neg">-45</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">11</td><td class="num">198</td><td class="num">288</td><td class="num gap-neg">-277</td></tr>
+          <tr><td>BENGKULU</td><td>KCP MANNA BENGKULU</td><td>KCP NC</td><td class="num">0.0</td><td class="num">-0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">0.0</td><td class="num">-0.4</td><td class="num">4.6</td><td class="num gap-neg">-4.5</td><td class="num group-border">0.3</td><td class="num">-1.8</td><td class="num">9.1</td><td class="num gap-neg">-8.8</td><td class="num group-border">0.08</td><td class="num">0.9</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">6</td><td class="num">43</td><td class="num">112</td><td class="num gap-neg">-106</td><td class="num group-border">5</td><td class="num">63</td><td class="num">256</td><td class="num gap-neg">-251</td><td class="num group-border">6</td><td class="num">13</td><td class="num">64</td><td class="num gap-neg">-58</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">13</td><td class="num">93</td><td class="num">288</td><td class="num gap-neg">-275</td></tr>
+          <tr><td>BENGKULU</td><td>JAMBI</td><td>KCU D</td><td class="num">0.9</td><td class="num">2.0</td><td class="num">1.2</td><td class="num gap-neg">-0.3</td><td class="num group-border">0.9</td><td class="num">-3.7</td><td class="num">4.6</td><td class="num gap-neg">-3.7</td><td class="num group-border">0.6</td><td class="num">-2.0</td><td class="num">9.1</td><td class="num gap-neg">-8.5</td><td class="num group-border">0.43</td><td class="num">4.7</td><td class="num">3.0</td><td class="num gap-neg">-2.6</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">5</td><td class="num">86</td><td class="num">112</td><td class="num gap-neg">-107</td><td class="num group-border">9</td><td class="num">146</td><td class="num">256</td><td class="num gap-neg">-247</td><td class="num group-border">7</td><td class="num">30</td><td class="num">64</td><td class="num gap-neg">-57</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">13</td><td class="num">148</td><td class="num">288</td><td class="num gap-neg">-275</td></tr>
+          <tr><td>BENGKULU</td><td>KCP MUARA BUNGO</td><td>KCP NC</td><td class="num">0.0</td><td class="num">0.1</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">0.0</td><td class="num">-1.4</td><td class="num">4.6</td><td class="num gap-neg">-4.5</td><td class="num group-border">0.5</td><td class="num">-0.7</td><td class="num">9.1</td><td class="num gap-neg">-8.7</td><td class="num group-border">0.17</td><td class="num">3.0</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">24</td><td class="num">102</td><td class="num">112</td><td class="num gap-neg">-88</td><td class="num group-border">39</td><td class="num">169</td><td class="num">256</td><td class="num gap-neg">-217</td><td class="num group-border">6</td><td class="num">30</td><td class="num">64</td><td class="num gap-neg">-58</td><td class="num group-border">32</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-80</td><td class="num group-border">50</td><td class="num">178</td><td class="num">288</td><td class="num gap-neg">-238</td></tr>
+          <tr><td>LAMPUNG</td><td>LAMPUNG</td><td>KCU C</td><td class="num">3.3</td><td class="num">41.7</td><td class="num">1.2</td><td class="num gap-pos">2.1</td><td class="num group-border">3.3</td><td class="num">-5.7</td><td class="num">4.6</td><td class="num gap-neg">-1.2</td><td class="num group-border">1.8</td><td class="num">41.1</td><td class="num">9.1</td><td class="num gap-neg">-7.3</td><td class="num group-border">0.31</td><td class="num">5.2</td><td class="num">3.0</td><td class="num gap-neg">-2.7</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">32</td><td class="num">202</td><td class="num">112</td><td class="num gap-neg">-80</td><td class="num group-border">42</td><td class="num">302</td><td class="num">256</td><td class="num gap-neg">-214</td><td class="num group-border">5</td><td class="num">17</td><td class="num">64</td><td class="num gap-neg">-59</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">43</td><td class="num">257</td><td class="num">288</td><td class="num gap-neg">-245</td></tr>
+          <tr><td>LAMPUNG</td><td>KCP METRO LAMPUNG</td><td>KCP D</td><td class="num">0.7</td><td class="num">-4.4</td><td class="num">1.2</td><td class="num gap-neg">-0.5</td><td class="num group-border">0.7</td><td class="num">-5.1</td><td class="num">4.6</td><td class="num gap-neg">-3.9</td><td class="num group-border">0.4</td><td class="num">-16.4</td><td class="num">9.1</td><td class="num gap-neg">-8.7</td><td class="num group-border">0.03</td><td class="num">4.5</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">52</td><td class="num">255</td><td class="num">112</td><td class="num gap-neg">-60</td><td class="num group-border">37</td><td class="num">319</td><td class="num">256</td><td class="num gap-neg">-219</td><td class="num group-border">2</td><td class="num">28</td><td class="num">64</td><td class="num gap-neg">-62</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">73</td><td class="num">450</td><td class="num">288</td><td class="num gap-neg">-215</td></tr>
+          <tr><td>LAMPUNG</td><td>KCP ZA PAGAR ALAM LAMPUNG</td><td>KCP NC</td><td class="num">1.2</td><td class="num">2.8</td><td class="num">1.2</td><td class="num gap-pos">0.0</td><td class="num group-border">1.2</td><td class="num">-2.5</td><td class="num">4.6</td><td class="num gap-neg">-3.3</td><td class="num group-border">-0.3</td><td class="num">0.5</td><td class="num">9.1</td><td class="num gap-neg">-9.4</td><td class="num group-border">0.27</td><td class="num">5.8</td><td class="num">3.0</td><td class="num gap-neg">-2.8</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">8</td><td class="num">42</td><td class="num">112</td><td class="num gap-neg">-104</td><td class="num group-border">26</td><td class="num">257</td><td class="num">256</td><td class="num gap-neg">-230</td><td class="num group-border">4</td><td class="num">29</td><td class="num">64</td><td class="num gap-neg">-60</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">31</td><td class="num">253</td><td class="num">288</td><td class="num gap-neg">-257</td></tr>
+          <tr><td>LAMPUNG</td><td>KCP KOTABUMI LAMPUNG</td><td>KCP NC</td><td class="num">-1.6</td><td class="num">-2.0</td><td class="num">1.2</td><td class="num gap-neg">-2.8</td><td class="num group-border">-1.6</td><td class="num">1.2</td><td class="num">4.6</td><td class="num gap-neg">-6.1</td><td class="num group-border">-0.8</td><td class="num">-15.8</td><td class="num">9.1</td><td class="num gap-neg">-9.9</td><td class="num group-border">0.04</td><td class="num">5.8</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">37</td><td class="num">162</td><td class="num">112</td><td class="num gap-neg">-75</td><td class="num group-border">20</td><td class="num">176</td><td class="num">256</td><td class="num gap-neg">-236</td><td class="num group-border">1</td><td class="num">21</td><td class="num">64</td><td class="num gap-neg">-63</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">47</td><td class="num">224</td><td class="num">288</td><td class="num gap-neg">-241</td></tr>
+          <tr><td>LAMPUNG</td><td>KCP BANDAR JAYA</td><td>KCP NC</td><td class="num">0.3</td><td class="num">0.9</td><td class="num">1.2</td><td class="num gap-neg">-0.9</td><td class="num group-border">0.3</td><td class="num">1.0</td><td class="num">4.6</td><td class="num gap-neg">-4.3</td><td class="num group-border">-0.4</td><td class="num">-8.3</td><td class="num">9.1</td><td class="num gap-neg">-9.5</td><td class="num group-border">0.01</td><td class="num">6.4</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">66</td><td class="num">295</td><td class="num">112</td><td class="num gap-neg">-46</td><td class="num group-border">10</td><td class="num">91</td><td class="num">256</td><td class="num gap-neg">-246</td><td class="num group-border">1</td><td class="num">7</td><td class="num">64</td><td class="num gap-neg">-63</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">73</td><td class="num">349</td><td class="num">288</td><td class="num gap-neg">-215</td></tr>
+          <tr><td>MEDAN BALAIKOTA</td><td>MEDAN BALAIKOTA</td><td>KCU C</td><td class="num">-1.1</td><td class="num">0.1</td><td class="num">1.2</td><td class="num gap-neg">-2.3</td><td class="num group-border">-1.1</td><td class="num">-10.5</td><td class="num">4.6</td><td class="num gap-neg">-5.7</td><td class="num group-border">-2.9</td><td class="num">-1.7</td><td class="num">9.1</td><td class="num gap-neg">-12.1</td><td class="num group-border">0.53</td><td class="num">13.4</td><td class="num">3.0</td><td class="num gap-neg">-2.5</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">36</td><td class="num">224</td><td class="num">112</td><td class="num gap-neg">-76</td><td class="num group-border">46</td><td class="num">296</td><td class="num">256</td><td class="num gap-neg">-210</td><td class="num group-border">13</td><td class="num">52</td><td class="num">64</td><td class="num gap-neg">-51</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">50</td><td class="num">276</td><td class="num">288</td><td class="num gap-neg">-238</td></tr>
+          <tr><td>MEDAN BALAIKOTA</td><td>KCP SERDANG</td><td>KCP NC</td><td class="num">-0.6</td><td class="num">-0.7</td><td class="num">1.2</td><td class="num gap-neg">-1.8</td><td class="num group-border">-0.6</td><td class="num">-1.8</td><td class="num">4.6</td><td class="num gap-neg">-5.2</td><td class="num group-border">0.6</td><td class="num">0.8</td><td class="num">9.1</td><td class="num gap-neg">-8.5</td><td class="num group-border">0.15</td><td class="num">3.6</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">6.5</td><td class="num">-</td><td class="num">-</td><td class="num group-border">6</td><td class="num">19</td><td class="num">112</td><td class="num gap-neg">-106</td><td class="num group-border">13</td><td class="num">137</td><td class="num">256</td><td class="num gap-neg">-243</td><td class="num group-border">2</td><td class="num">21</td><td class="num">64</td><td class="num gap-neg">-62</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">11</td><td class="num">123</td><td class="num">288</td><td class="num gap-neg">-277</td></tr>
+          <tr><td>MEDAN BALAIKOTA</td><td>KCP SUKARAMAI</td><td>KCP D</td><td class="num">-0.9</td><td class="num">2.0</td><td class="num">1.2</td><td class="num gap-neg">-2.1</td><td class="num group-border">-0.9</td><td class="num">-4.9</td><td class="num">4.6</td><td class="num gap-neg">-5.5</td><td class="num group-border">-2.7</td><td class="num">-2.9</td><td class="num">9.1</td><td class="num gap-neg">-11.8</td><td class="num group-border">0.07</td><td class="num">1.9</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">7.1</td><td class="num">-</td><td class="num">-</td><td class="num group-border">2</td><td class="num">22</td><td class="num">112</td><td class="num gap-neg">-110</td><td class="num group-border">12</td><td class="num">108</td><td class="num">256</td><td class="num gap-neg">-244</td><td class="num group-border">3</td><td class="num">16</td><td class="num">64</td><td class="num gap-neg">-61</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">14</td><td class="num">107</td><td class="num">288</td><td class="num gap-neg">-274</td></tr>
+          <tr><td>MEDAN BALAIKOTA</td><td>PADANG SIDEMPUAN</td><td>KCU NC</td><td class="num">-0.1</td><td class="num">1.1</td><td class="num">1.2</td><td class="num gap-neg">-1.3</td><td class="num group-border">-0.1</td><td class="num">-4.0</td><td class="num">4.6</td><td class="num gap-neg">-4.7</td><td class="num group-border">-1.1</td><td class="num">-1.7</td><td class="num">9.1</td><td class="num gap-neg">-10.2</td><td class="num group-border">0.15</td><td class="num">3.9</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">9</td><td class="num">84</td><td class="num">112</td><td class="num gap-neg">-103</td><td class="num group-border">21</td><td class="num">412</td><td class="num">256</td><td class="num gap-neg">-235</td><td class="num group-border">11</td><td class="num">48</td><td class="num">64</td><td class="num gap-neg">-53</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">23</td><td class="num">374</td><td class="num">288</td><td class="num gap-neg">-265</td></tr>
+          <tr><td>MEDAN BALAIKOTA</td><td>KCP PANYABUNGAN</td><td>KCP NC</td><td class="num">0.0</td><td class="num">0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">0.0</td><td class="num">-2.3</td><td class="num">4.6</td><td class="num gap-neg">-4.5</td><td class="num group-border">-1.1</td><td class="num">-2.8</td><td class="num">9.1</td><td class="num gap-neg">-10.2</td><td class="num group-border">0.01</td><td class="num">1.7</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">21</td><td class="num">129</td><td class="num">112</td><td class="num gap-neg">-91</td><td class="num group-border">25</td><td class="num">198</td><td class="num">256</td><td class="num gap-neg">-231</td><td class="num group-border">2</td><td class="num">30</td><td class="num">64</td><td class="num gap-neg">-62</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">27</td><td class="num">201</td><td class="num">288</td><td class="num gap-neg">-261</td></tr>
+          <tr><td>MEDAN BARU</td><td>MEDAN BARU</td><td>KCU D</td><td class="num">2.2</td><td class="num">-2.2</td><td class="num">1.2</td><td class="num gap-pos">1.0</td><td class="num group-border">2.2</td><td class="num">-7.9</td><td class="num">4.6</td><td class="num gap-neg">-2.4</td><td class="num group-border">0.5</td><td class="num">-12.3</td><td class="num">9.1</td><td class="num gap-neg">-8.7</td><td class="num group-border">0.35</td><td class="num">8.7</td><td class="num">3.0</td><td class="num gap-neg">-2.7</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">14</td><td class="num">86</td><td class="num">112</td><td class="num gap-neg">-98</td><td class="num group-border">63</td><td class="num">584</td><td class="num">256</td><td class="num gap-neg">-193</td><td class="num group-border">14</td><td class="num">44</td><td class="num">64</td><td class="num gap-neg">-50</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">62</td><td class="num">559</td><td class="num">288</td><td class="num gap-neg">-226</td></tr>
+          <tr><td>MEDAN BARU</td><td>PEMATANG SIANTAR</td><td>KCU NC</td><td class="num">-0.0</td><td class="num">-0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">-0.0</td><td class="num">-0.3</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">-0.8</td><td class="num">-1.1</td><td class="num">9.1</td><td class="num gap-neg">-9.9</td><td class="num group-border">0.10</td><td class="num">2.0</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">2</td><td class="num">12</td><td class="num">112</td><td class="num gap-neg">-110</td><td class="num group-border">9</td><td class="num">85</td><td class="num">256</td><td class="num gap-neg">-247</td><td class="num group-border">2</td><td class="num">14</td><td class="num">64</td><td class="num gap-neg">-62</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">15</td><td class="num">101</td><td class="num">288</td><td class="num gap-neg">-273</td></tr>
+          <tr><td>MEDAN BARU</td><td>KCP KISARAN</td><td>KCP NC</td><td class="num">-0.6</td><td class="num">-1.9</td><td class="num">1.2</td><td class="num gap-neg">-1.8</td><td class="num group-border">-0.6</td><td class="num">2.9</td><td class="num">4.6</td><td class="num gap-neg">-5.2</td><td class="num group-border">-0.7</td><td class="num">-1.5</td><td class="num">9.1</td><td class="num gap-neg">-9.8</td><td class="num group-border">2.11</td><td class="num">4.7</td><td class="num">3.0</td><td class="num gap-neg">-0.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">4</td><td class="num">40</td><td class="num">112</td><td class="num gap-neg">-108</td><td class="num group-border">28</td><td class="num">128</td><td class="num">256</td><td class="num gap-neg">-228</td><td class="num group-border">8</td><td class="num">25</td><td class="num">64</td><td class="num gap-neg">-56</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">29</td><td class="num">154</td><td class="num">288</td><td class="num gap-neg">-259</td></tr>
+          <tr><td>MEDAN BARU</td><td>KCP BINJAI</td><td>KCP NC</td><td class="num">0.1</td><td class="num">-0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.1</td><td class="num group-border">0.1</td><td class="num">-2.5</td><td class="num">4.6</td><td class="num gap-neg">-4.5</td><td class="num group-border">-2.7</td><td class="num">-4.6</td><td class="num">9.1</td><td class="num gap-neg">-11.8</td><td class="num group-border">0.04</td><td class="num">5.5</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">8</td><td class="num">43</td><td class="num">112</td><td class="num gap-neg">-104</td><td class="num group-border">13</td><td class="num">133</td><td class="num">256</td><td class="num gap-neg">-243</td><td class="num group-border">1</td><td class="num">10</td><td class="num">64</td><td class="num gap-neg">-63</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">15</td><td class="num">145</td><td class="num">288</td><td class="num gap-neg">-273</td></tr>
+          <tr><td>MEDAN BARU</td><td>KCP STABAT</td><td>KCP NC</td><td class="num">0.0</td><td class="num">0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">0.0</td><td class="num">-0.7</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">-1.7</td><td class="num">0.3</td><td class="num">9.1</td><td class="num gap-neg">-10.8</td><td class="num group-border">0.28</td><td class="num">4.0</td><td class="num">3.0</td><td class="num gap-neg">-2.8</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">11</td><td class="num">60</td><td class="num">112</td><td class="num gap-neg">-101</td><td class="num group-border">12</td><td class="num">192</td><td class="num">256</td><td class="num gap-neg">-244</td><td class="num group-border">3</td><td class="num">11</td><td class="num">64</td><td class="num gap-neg">-61</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">22</td><td class="num">224</td><td class="num">288</td><td class="num gap-neg">-266</td></tr>
+          <tr><td>PADANG</td><td>PADANG</td><td>KCU D</td><td class="num">0.9</td><td class="num">9.2</td><td class="num">1.2</td><td class="num gap-neg">-0.3</td><td class="num group-border">0.9</td><td class="num">-7.1</td><td class="num">4.6</td><td class="num gap-neg">-3.7</td><td class="num group-border">-3.0</td><td class="num">-3.1</td><td class="num">9.1</td><td class="num gap-neg">-12.1</td><td class="num group-border">0.60</td><td class="num">10.4</td><td class="num">3.0</td><td class="num gap-neg">-2.4</td><td class="num group-border">0.00</td><td class="num">6.8</td><td class="num">-</td><td class="num">-</td><td class="num group-border">28</td><td class="num">176</td><td class="num">112</td><td class="num gap-neg">-84</td><td class="num group-border">28</td><td class="num">529</td><td class="num">256</td><td class="num gap-neg">-228</td><td class="num group-border">1</td><td class="num">21</td><td class="num">64</td><td class="num gap-neg">-63</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">23</td><td class="num">457</td><td class="num">288</td><td class="num gap-neg">-265</td></tr>
+          <tr><td>PADANG</td><td>KCP BUKITTINGGI</td><td>KCP D</td><td class="num">-0.1</td><td class="num">-0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.3</td><td class="num group-border">-0.1</td><td class="num">-4.1</td><td class="num">4.6</td><td class="num gap-neg">-4.7</td><td class="num group-border">-1.1</td><td class="num">-7.5</td><td class="num">9.1</td><td class="num gap-neg">-10.2</td><td class="num group-border">0.33</td><td class="num">2.1</td><td class="num">3.0</td><td class="num gap-neg">-2.7</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">2</td><td class="num">17</td><td class="num">112</td><td class="num gap-neg">-110</td><td class="num group-border">19</td><td class="num">252</td><td class="num">256</td><td class="num gap-neg">-237</td><td class="num group-border">1</td><td class="num">14</td><td class="num">64</td><td class="num gap-neg">-63</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">19</td><td class="num">155</td><td class="num">288</td><td class="num gap-neg">-269</td></tr>
+          <tr><td>PADANG</td><td>KCP PAYAKUMBUH</td><td>KCP D</td><td class="num">0.2</td><td class="num">-3.7</td><td class="num">1.2</td><td class="num gap-neg">-1.0</td><td class="num group-border">0.2</td><td class="num">-9.1</td><td class="num">4.6</td><td class="num gap-neg">-4.4</td><td class="num group-border">0.5</td><td class="num">-39.9</td><td class="num">9.1</td><td class="num gap-neg">-8.7</td><td class="num group-border">0.17</td><td class="num">7.1</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">3</td><td class="num">22</td><td class="num">112</td><td class="num gap-neg">-109</td><td class="num group-border">10</td><td class="num">90</td><td class="num">256</td><td class="num gap-neg">-246</td><td class="num group-border">5</td><td class="num">14</td><td class="num">64</td><td class="num gap-neg">-59</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">15</td><td class="num">74</td><td class="num">288</td><td class="num gap-neg">-273</td></tr>
+          <tr><td>PADANG</td><td>KCP SOLOK</td><td>KCP NC</td><td class="num">-0.1</td><td class="num">-0.3</td><td class="num">1.2</td><td class="num gap-neg">-1.3</td><td class="num group-border">-0.1</td><td class="num">-2.5</td><td class="num">4.6</td><td class="num gap-neg">-4.7</td><td class="num group-border">-1.2</td><td class="num">-4.3</td><td class="num">9.1</td><td class="num gap-neg">-10.3</td><td class="num group-border">0.10</td><td class="num">2.7</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">2</td><td class="num">30</td><td class="num">112</td><td class="num gap-neg">-110</td><td class="num group-border">12</td><td class="num">157</td><td class="num">256</td><td class="num gap-neg">-244</td><td class="num group-border">1</td><td class="num">7</td><td class="num">64</td><td class="num gap-neg">-63</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">9</td><td class="num">127</td><td class="num">288</td><td class="num gap-neg">-279</td></tr>
+          <tr><td>PALEMBANG</td><td>PALEMBANG</td><td>KCU D</td><td class="num">-4.1</td><td class="num">-8.2</td><td class="num">1.2</td><td class="num gap-neg">-5.3</td><td class="num group-border">-4.1</td><td class="num">2.4</td><td class="num">4.6</td><td class="num gap-neg">-8.7</td><td class="num group-border">-2.6</td><td class="num">-30.3</td><td class="num">9.1</td><td class="num gap-neg">-11.7</td><td class="num group-border">0.31</td><td class="num">8.0</td><td class="num">3.0</td><td class="num gap-neg">-2.7</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">35</td><td class="num">117</td><td class="num">112</td><td class="num gap-neg">-77</td><td class="num group-border">36</td><td class="num">288</td><td class="num">256</td><td class="num gap-neg">-220</td><td class="num group-border">4</td><td class="num">23</td><td class="num">64</td><td class="num gap-neg">-60</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">37</td><td class="num">215</td><td class="num">288</td><td class="num gap-neg">-251</td></tr>
+          <tr><td>PALEMBANG</td><td>KCP PLAJU</td><td>KCP NC</td><td class="num">0.0</td><td class="num">-1.6</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">0.0</td><td class="num">-0.3</td><td class="num">4.6</td><td class="num gap-neg">-4.5</td><td class="num group-border">-0.2</td><td class="num">-0.1</td><td class="num">9.1</td><td class="num gap-neg">-9.3</td><td class="num group-border">0.07</td><td class="num">3.7</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">18</td><td class="num">68</td><td class="num">112</td><td class="num gap-neg">-94</td><td class="num group-border">14</td><td class="num">172</td><td class="num">256</td><td class="num gap-neg">-242</td><td class="num group-border">10</td><td class="num">27</td><td class="num">64</td><td class="num gap-neg">-54</td><td class="num group-border">54</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-59</td><td class="num group-border">46</td><td class="num">172</td><td class="num">288</td><td class="num gap-neg">-242</td></tr>
+          <tr><td>PALEMBANG</td><td>KCP BATURAJA</td><td>KCP NC</td><td class="num">0.2</td><td class="num">-1.7</td><td class="num">1.2</td><td class="num gap-neg">-1.0</td><td class="num group-border">0.2</td><td class="num">-1.7</td><td class="num">4.6</td><td class="num gap-neg">-4.3</td><td class="num group-border">-0.1</td><td class="num">-3.5</td><td class="num">9.1</td><td class="num gap-neg">-9.3</td><td class="num group-border">0.43</td><td class="num">3.1</td><td class="num">3.0</td><td class="num gap-neg">-2.6</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">7</td><td class="num">78</td><td class="num">112</td><td class="num gap-neg">-105</td><td class="num group-border">11</td><td class="num">71</td><td class="num">256</td><td class="num gap-neg">-245</td><td class="num group-border">1</td><td class="num">9</td><td class="num">64</td><td class="num gap-neg">-63</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">17</td><td class="num">109</td><td class="num">288</td><td class="num gap-neg">-271</td></tr>
+          <tr><td>PALEMBANG</td><td>KCP ENIM</td><td>KCP NC</td><td class="num">0.0</td><td class="num">-0.3</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">0.0</td><td class="num">-3.7</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">-0.2</td><td class="num">-32.6</td><td class="num">9.1</td><td class="num gap-neg">-9.3</td><td class="num group-border">0.21</td><td class="num">1.3</td><td class="num">3.0</td><td class="num gap-neg">-2.8</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">9</td><td class="num">52</td><td class="num">112</td><td class="num gap-neg">-103</td><td class="num group-border">8</td><td class="num">81</td><td class="num">256</td><td class="num gap-neg">-248</td><td class="num group-border">2</td><td class="num">6</td><td class="num">64</td><td class="num gap-neg">-62</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">12</td><td class="num">89</td><td class="num">288</td><td class="num gap-neg">-276</td></tr>
+          <tr><td>PANGKAL PINANG</td><td>PANGKAL PINANG</td><td>KCU C</td><td class="num">0.1</td><td class="num">-6.1</td><td class="num">1.2</td><td class="num gap-neg">-1.1</td><td class="num group-border">0.1</td><td class="num">-4.9</td><td class="num">4.6</td><td class="num gap-neg">-4.4</td><td class="num group-border">3.2</td><td class="num">-3.1</td><td class="num">9.1</td><td class="num gap-neg">-5.9</td><td class="num group-border">0.15</td><td class="num">6.5</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">19</td><td class="num">73</td><td class="num">112</td><td class="num gap-neg">-93</td><td class="num group-border">35</td><td class="num">235</td><td class="num">256</td><td class="num gap-neg">-221</td><td class="num group-border">2</td><td class="num">22</td><td class="num">64</td><td class="num gap-neg">-62</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">32</td><td class="num">199</td><td class="num">288</td><td class="num gap-neg">-256</td></tr>
+          <tr><td>PANGKAL PINANG</td><td>KCP TANJUNG PANDAN</td><td>KCP NC</td><td class="num">0.0</td><td class="num">-0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">0.0</td><td class="num">-4.5</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">-0.1</td><td class="num">-4.9</td><td class="num">9.1</td><td class="num gap-neg">-9.2</td><td class="num group-border">0.29</td><td class="num">3.9</td><td class="num">3.0</td><td class="num gap-neg">-2.8</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">4</td><td class="num">17</td><td class="num">112</td><td class="num gap-neg">-108</td><td class="num group-border">13</td><td class="num">94</td><td class="num">256</td><td class="num gap-neg">-243</td><td class="num group-border">5</td><td class="num">13</td><td class="num">64</td><td class="num gap-neg">-59</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">10</td><td class="num">73</td><td class="num">288</td><td class="num gap-neg">-278</td></tr>
+          <tr><td>PANGKAL PINANG</td><td>KCP SUNGAILIAT</td><td>KCP D</td><td class="num">-0.0</td><td class="num">-0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">-0.0</td><td class="num">-2.8</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">-0.3</td><td class="num">-4.3</td><td class="num">9.1</td><td class="num gap-neg">-9.5</td><td class="num group-border">1.03</td><td class="num">5.1</td><td class="num">3.0</td><td class="num gap-neg">-2.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">24</td><td class="num">89</td><td class="num">112</td><td class="num gap-neg">-88</td><td class="num group-border">30</td><td class="num">152</td><td class="num">256</td><td class="num gap-neg">-226</td><td class="num group-border">7</td><td class="num">31</td><td class="num">64</td><td class="num gap-neg">-57</td><td class="num group-border">20</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-92</td><td class="num group-border">28</td><td class="num">178</td><td class="num">288</td><td class="num gap-neg">-260</td></tr>
+          <tr><td>PANGKAL PINANG</td><td>KCP KOBA</td><td>KCP NC</td><td class="num">0.0</td><td class="num">-0.0</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">0.0</td><td class="num">-1.3</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">-0.2</td><td class="num">-1.7</td><td class="num">9.1</td><td class="num gap-neg">-9.3</td><td class="num group-border">0.06</td><td class="num">0.9</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">14</td><td class="num">79</td><td class="num">112</td><td class="num gap-neg">-98</td><td class="num group-border">21</td><td class="num">143</td><td class="num">256</td><td class="num gap-neg">-235</td><td class="num group-border">4</td><td class="num">15</td><td class="num">64</td><td class="num gap-neg">-60</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">19</td><td class="num">121</td><td class="num">288</td><td class="num gap-neg">-269</td></tr>
+          <tr><td>PEKANBARU</td><td>PEKANBARU</td><td>KCU C</td><td class="num">-0.3</td><td class="num">6.3</td><td class="num">1.2</td><td class="num gap-neg">-1.5</td><td class="num group-border">-0.3</td><td class="num">-10.0</td><td class="num">4.6</td><td class="num gap-neg">-4.9</td><td class="num group-border">-1.9</td><td class="num">-37.5</td><td class="num">9.1</td><td class="num gap-neg">-11.1</td><td class="num group-border">0.65</td><td class="num">8.3</td><td class="num">3.0</td><td class="num gap-neg">-2.4</td><td class="num group-border">0.00</td><td class="num">5.7</td><td class="num">-</td><td class="num">-</td><td class="num group-border">23</td><td class="num">153</td><td class="num">112</td><td class="num gap-neg">-89</td><td class="num group-border">35</td><td class="num">325</td><td class="num">256</td><td class="num gap-neg">-221</td><td class="num group-border">2</td><td class="num">20</td><td class="num">64</td><td class="num gap-neg">-62</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">34</td><td class="num">274</td><td class="num">288</td><td class="num gap-neg">-254</td></tr>
+          <tr><td>PEKANBARU</td><td>KCP KAMPAR</td><td>KCP NC</td><td class="num">0.4</td><td class="num">-2.4</td><td class="num">1.2</td><td class="num gap-neg">-0.8</td><td class="num group-border">0.4</td><td class="num">-0.5</td><td class="num">4.6</td><td class="num gap-neg">-4.2</td><td class="num group-border">-0.2</td><td class="num">-3.4</td><td class="num">9.1</td><td class="num gap-neg">-9.3</td><td class="num group-border">0.19</td><td class="num">7.9</td><td class="num">3.0</td><td class="num gap-neg">-2.8</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">42</td><td class="num">138</td><td class="num">112</td><td class="num gap-neg">-70</td><td class="num group-border">103</td><td class="num">263</td><td class="num">256</td><td class="num gap-pos">-153</td><td class="num group-border">3</td><td class="num">20</td><td class="num">64</td><td class="num gap-neg">-61</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">110</td><td class="num">299</td><td class="num">288</td><td class="num gap-neg">-178</td></tr>
+          <tr><td>PEKANBARU</td><td>BATAM</td><td>KCU D</td><td class="num">-0.4</td><td class="num">-3.0</td><td class="num">1.2</td><td class="num gap-neg">-1.6</td><td class="num group-border">-0.4</td><td class="num">-6.1</td><td class="num">4.6</td><td class="num gap-neg">-5.0</td><td class="num group-border">-1.3</td><td class="num">-9.3</td><td class="num">9.1</td><td class="num gap-neg">-10.4</td><td class="num group-border">0.05</td><td class="num">3.5</td><td class="num">3.0</td><td class="num gap-neg">-3.0</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">13</td><td class="num">70</td><td class="num">112</td><td class="num gap-neg">-99</td><td class="num group-border">18</td><td class="num">181</td><td class="num">256</td><td class="num gap-neg">-238</td><td class="num group-border">8</td><td class="num">24</td><td class="num">64</td><td class="num gap-neg">-56</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">13</td><td class="num">107</td><td class="num">288</td><td class="num gap-neg">-275</td></tr>
+          <tr><td>PEKANBARU</td><td>TANJUNG PINANG</td><td>KCU D</td><td class="num">-0.0</td><td class="num">1.7</td><td class="num">1.2</td><td class="num gap-neg">-1.2</td><td class="num group-border">-0.0</td><td class="num">-1.1</td><td class="num">4.6</td><td class="num gap-neg">-4.6</td><td class="num group-border">-0.4</td><td class="num">-2.6</td><td class="num">9.1</td><td class="num gap-neg">-9.5</td><td class="num group-border">0.17</td><td class="num">6.8</td><td class="num">3.0</td><td class="num gap-neg">-2.9</td><td class="num group-border">0.00</td><td class="num">0.0</td><td class="num">-</td><td class="num">-</td><td class="num group-border">3</td><td class="num">30</td><td class="num">112</td><td class="num gap-neg">-109</td><td class="num group-border">7</td><td class="num">115</td><td class="num">256</td><td class="num gap-neg">-249</td><td class="num group-border">6</td><td class="num">13</td><td class="num">64</td><td class="num gap-neg">-58</td><td class="num group-border">0</td><td class="num">-</td><td class="num">112</td><td class="num gap-neg">-112</td><td class="num group-border">7</td><td class="num">93</td><td class="num">288</td><td class="num gap-neg">-281</td></tr>
+          <!-- ================= DATA NTBL BERAKHIR DI SINI ================= -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-        <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-5 rounded-xl shadow-sm">
-                <p class="text-xs font-medium opacity-80 uppercase">Total Booking</p>
-                <h3 id="kpiBooking" class="text-2xl font-bold mt-1">0</h3>
-            </div>
-            <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-5 rounded-xl shadow-sm">
-                <p class="text-xs font-medium opacity-80 uppercase">Total Pipeline</p>
-                <h3 id="kpiPipeline" class="text-2xl font-bold mt-1">0</h3>
-            </div>
-            <div class="bg-gradient-to-br from-amber-500 to-amber-600 text-white p-5 rounded-xl shadow-sm">
-                <p class="text-xs font-medium opacity-80 uppercase">Active Rate (Avg)</p>
-                <h3 id="kpiActiveRate" class="text-2xl font-bold mt-1">0%</h3>
-            </div>
-        </section>
+  <script>
+    // Fitur Pencarian Real-time
+    document.getElementById('searchBox').addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('#ntbl-data tr');
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(term) ? '' : 'none';
+      });
+    });
 
-        <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                <h2 class="font-bold text-gray-700">Checkpoint Performance Per RM</h2>
-                <span class="text-xs text-gray-500 font-medium" id="rowCount">Showing: 0 data</span>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse whitespace-nowrap">
-                    <thead>
-                        <tr class="bg-gray-100 text-gray-600 text-xs font-semibold uppercase border-b border-gray-200">
-                            <th class="px-6 py-3">Nama RM</th>
-                            <th class="px-6 py-3 text-center">BranchCo</th>
-                            <th class="px-6 py-3">Branch</th>
-                            <th class="px-4 py-3 text-right">Pipeline</th>
-                            <th class="px-4 py-3 text-right">Booking</th>
-                            <th class="px-4 py-3 text-center">Active Rate</th>
-                        </tr>
-                    </thead>
-                    <tbody id="reportTableBody" class="divide-y divide-gray-100 text-sm">
-                        </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        // 1. DATA UTAMA (Ubah data di dalam array ini untuk mengganti isi NTbl)
-        const dataNTbl = [
-            { rm: "Ahmad Denny", branchCo: "Sumatera 1", branch: "Medan", pipeline: 1500000000, booking: 1200000000, activeRate: 80, tanggal: "2026-05-20" },
-            { rm: "Rian Hidayat", branchCo: "Sumatera 1", branch: "Medan", pipeline: 900000000, booking: 450000000, activeRate: 50, tanggal: "2026-05-20" },
-            { rm: "Siti Rahma", branchCo: "Sumatera 1", branch: "Banda Aceh", pipeline: 1100000000, booking: 880000000, activeRate: 80, tanggal: "2026-05-20" },
-            { rm: "Budi Santoso", branchCo: "Sumatera 2", branch: "Palembang", pipeline: 2000000000, booking: 1600000000, activeRate: 80, tanggal: "2026-05-20" },
-            { rm: "Dewi Lestari", branchCo: "Sumatera 2", branch: "Lampung", pipeline: 750000000, booking: 600000000, activeRate: 80, tanggal: "2026-05-20" },
-            { rm: "Willy Bro", branchCo: "Sumatera 2", branch: "Palembang", pipeline: 1300000000, booking: 1040000000, activeRate: 80, tanggal: "2026-05-20" }
-        ];
-
-        // Format Angka ke Rupiah / Standar Ribbon
-        function formatNumber(num) {
-            return new Intl.NumberFormat('id-ID').format(num);
-        }
-
-        // 2. INISIALISASI FILTER OPTION (Mengambil data unik dari NTbl)
-        function initFilters() {
-            const branchCoSelect = document.getElementById('filterBranchCo');
-            
-            // Dapatkan semua unique BranchCo
-            const uniqueBranchCo = [...new Set(dataNTbl.map(item => item.branchCo))];
-            
-            uniqueBranchCo.forEach(bc => {
-                let opt = document.createElement('option');
-                opt.value = bc;
-                opt.innerText = bc;
-                branchCoSelect.appendChild(opt);
-            });
-
-            updateBranchOptions();
-        }
-
-        // Mengubah pilihan Branch berdasarkan BranchCo yang dipilih (Cascading Filter)
-        function updateBranchOptions() {
-            const selectedBranchCo = document.getElementById('filterBranchCo').value;
-            const branchSelect = document.getElementById('filterBranch');
-            
-            // Reset dropdown branch
-            branchSelect.innerHTML = '<option value="ALL">-- Semua Branch --</option>';
-
-            // Filter data yang sesuai untuk mencari list Branch unik
-            const filteredData = selectedBranchCo === "ALL" 
-                ? dataNTbl 
-                : dataNTbl.filter(item => item.branchCo === selectedBranchCo);
-
-            const uniqueBranch = [...new Set(filteredData.map(item => item.branch))];
-
-            uniqueBranch.forEach(b => {
-                let opt = document.createElement('option');
-                opt.value = b;
-                opt.innerText = b;
-                branchSelect.appendChild(opt);
-            });
-
-            renderDashboard();
-        }
-
-        // 3. PROSES & TAMPILKAN DATA (Fungsi Pengganti PvtChk & ChkPnt)
-        function renderDashboard() {
-            const targetBranchCo = document.getElementById('filterBranchCo').value;
-            const targetBranch = document.getElementById('filterBranch').value;
-            const tbody = document.getElementById('reportTableBody');
-            
-            tbody.innerHTML = ''; // bersihkan tabel sebelum render
-
-            // Proses Filter Data NTbl
-            let finalData = dataNTbl.filter(item => {
-                const matchBranchCo = (targetBranchCo === "ALL" || item.branchCo === targetBranchCo);
-                const matchBranch = (targetBranch === "ALL" || item.branch === targetBranch);
-                return matchBranchCo && matchBranch;
-            });
-
-            // Set Meta As of Date dari data terbaru yang tersedia
-            if(finalData.length > 0) {
-                document.getElementById('asOfDate').innerText = finalData[0].tanggal;
-            } else {
-                document.getElementById('asOfDate').innerText = "-";
+    // Auto Color Gap Columns (Negative=Red, Positive=Green)
+    document.addEventListener('DOMContentLoaded', () => {
+      const gapIndices = [6, 10, 14, 18, 22, 26, 30, 34, 38, 42]; // Index kolom Gap (0-based)
+      const rows = document.querySelectorAll('#ntbl-data tr');
+      rows.forEach(row => {
+        gapIndices.forEach(idx => {
+          const cell = row.children[idx];
+          if (cell) {
+            const val = parseFloat(cell.textContent.replace(/,/g, ''));
+            if (!isNaN(val)) {
+              cell.classList.add('num');
+              cell.classList.remove('gap-pos', 'gap-neg');
+              if (val > 0) cell.classList.add('gap-pos');
+              else if (val < 0) cell.classList.add('gap-neg');
             }
-
-            // Variabel Akumulasi KPI (Grand Total Pivot)
-            let totalPipeline = 0;
-            let totalBooking = 0;
-            let totalActiveRate = 0;
-
-            // Render baris tabel laporan
-            finalData.forEach(row => {
-                totalPipeline += row.pipeline;
-                totalBooking += row.booking;
-                totalActiveRate += row.activeRate;
-
-                let tr = document.createElement('tr');
-                tr.className = "hover:bg-gray-50 transition";
-                tr.innerHTML = `
-                    <td class="px-6 py-3.5 font-medium text-gray-900">${row.rm}</td>
-                    <td class="px-6 py-3.5 text-center text-xs"><span class="bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full font-medium">${row.branchCo}</span></td>
-                    <td class="px-6 py-3.5 text-gray-600">${row.branch}</td>
-                    <td class="px-4 py-3.5 text-right font-mono text-gray-700">${formatNumber(row.pipeline)}</td>
-                    <td class="px-4 py-3.5 text-right font-mono text-emerald-600 font-semibold">${formatNumber(row.booking)}</td>
-                    <td class="px-4 py-3.5 text-center">
-                        <span class="px-2 py-1 rounded text-xs font-bold ${row.activeRate >= 70 ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
-                            ${row.activeRate}%
-                        </span>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            // Hitung Rata-rata Active Rate
-            let avgActiveRate = finalData.length > 0 ? Math.round(totalActiveRate / finalData.length) : 0;
-
-            // Update Angka di Card KPI Atas
-            document.getElementById('kpiPipeline').innerText = formatNumber(totalPipeline);
-            document.getElementById('kpiBooking').innerText = formatNumber(totalBooking);
-            document.getElementById('kpiActiveRate').innerText = avgActiveRate + "%";
-            document.getElementById('rowCount').innerText = `Showing: ${finalData.length} entries`;
-        }
-
-        // Jalankan inisialisasi saat halaman web pertama kali dimuat
-        window.onload = function() {
-            initFilters();
-        };
-    </script>
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
