@@ -52,6 +52,8 @@
     .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease, background 0.3s; }
     .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; margin-left: 6px; background: var(--tag-bg); color: var(--tag-text); transition: background 0.3s, color 0.3s; }
     .footer { text-align: center; padding: 20px 10px; color: var(--text-light); font-size: 0.75rem; margin-top: 20px; transition: color 0.3s; }
+    /* Badge indikator logika khusus */
+    .tag.special { background: var(--warning); color: #0f172a; font-size: 0.65rem;padding: 2px 6px;}
     @media (max-width: 600px) { .filters { grid-template-columns: 1fr; } .summary-bar { grid-template-columns: repeat(2, 1fr); } .params-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -211,24 +213,46 @@
   }
 
   function aggregate(data, coBr, br) {
-    let filtered = data;
-    if(coBr!=='ALL') filtered = filtered.filter(d=>d.co===coBr);
-    if(br!=='ALL') filtered = filtered.filter(d=>d.br===br);
-    const sum = (key) => filtered.reduce((a,b)=>a+(b[key]||0),0);
-    const count = filtered.length;
-    const avg = (key) => count > 0 ? sum(key)/count : 0;
-    return {
-      ca_mtd:sum('ca_mtd'), ca_tgt:sum('ca_tgt'), gapCA:sum('gapCA'), achCA:avg('achCA'),
-      sa_mtd:sum('sa_mtd'), sa_tgt:sum('sa_tgt'), gapSA:sum('gapSA'), achSA:avg('achSA'),
-      fu_mtd:sum('fu_mtd'), fu_tgt:sum('fu_tgt'), gapFU:sum('gapFU'), achFU:avg('achFU'),
-      con_mtd:sum('con_mtd'), con_tgt:sum('con_tgt'), gapCon:sum('gapCon'), achCon:avg('achCon'),
-      sme_mtd:sum('sme_mtd'), sme_tgt:sum('sme_tgt'), gapSME:sum('gapSME'), achSME:avg('achSME'),
-      ph_mtd:sum('ph_mtd'), ph_tgt:sum('ph_tgt'), gapPH:sum('gapPH'), achPH:avg('achPH'),
-      mdin_mtd:sum('mdin_mtd'), mdin_tgt:sum('mdin_tgt'), gapMDIN:sum('gapMDIN'), achMDIN:avg('achMDIN'),
-      qris_mtd:sum('qris_mtd'), qris_tgt:sum('qris_tgt'), gapQRIS:sum('gapQRIS'), achQRIS:avg('achQRIS'),
-      sli_mtd:sum('sli_mtd'), sli_tgt:sum('sli_tgt'), gapSLI:sum('gapSLI'), achSLI:avg('achSLI'),
-      cif_mtd:sum('cif_mtd'), cif_tgt:sum('cif_tgt'), gapCIF:sum('gapCIF'), achCIF:avg('achCIF')
-    };
+  let filtered = data;
+  if(coBr!=='ALL') filtered = filtered.filter(d=>d.co===coBr);
+  if(br!=='ALL') filtered = filtered.filter(d=>d.br===br);
+  
+  const sum = (key) => filtered.reduce((a,b)=>a+(b[key]||0),0);
+  const count = filtered.length;
+  const avg = (key) => count > 0 ? sum(key)/count : 0;
+  
+  // 🎯 SPECIAL HANDLING FOR SME - REGION
+  // 1. Booking MTD: hanya jumlahkan cabang yang booking > 0
+  const smeMtdActive = filtered
+    .filter(d => (d.sme_mtd || 0) > 0)
+    .reduce((acc, d) => acc + (d.sme_mtd || 0), 0);
+  
+  // 2. Target: 50 M hanya jika filter ALL + ALL, selain itu sum normal
+  const isAllFilter = (coBr === 'ALL' && br === 'ALL');
+  const smeTgtValue = isAllFilter ? 50 : sum('sme_tgt');
+  
+  // 3. Hitung gap & achievement SME dengan nilai khusus di atas
+  const gapSMEValue = smeMtdActive - smeTgtValue;
+  const achSMEValue = smeTgtValue > 0 ? (smeMtdActive / smeTgtValue * 100) : 0;
+  
+  return {
+    ca_mtd:sum('ca_mtd'), ca_tgt:sum('ca_tgt'), gapCA:sum('gapCA'), achCA:avg('achCA'),
+    sa_mtd:sum('sa_mtd'), sa_tgt:sum('sa_tgt'), gapSA:sum('gapSA'), achSA:avg('achSA'),
+    fu_mtd:sum('fu_mtd'), fu_tgt:sum('fu_tgt'), gapFU:sum('gapFU'), achFU:avg('achFU'),
+    con_mtd:sum('con_mtd'), con_tgt:sum('con_tgt'), gapCon:sum('gapCon'), achCon:avg('achCon'),
+    
+    // ✅ SME dengan logika khusus
+    sme_mtd: smeMtdActive,
+    sme_tgt: smeTgtValue,
+    gapSME: gapSMEValue,
+    achSME: achSMEValue,
+    
+    ph_mtd:sum('ph_mtd'), ph_tgt:sum('ph_tgt'), gapPH:sum('gapPH'), achPH:avg('achPH'),
+    mdin_mtd:sum('mdin_mtd'), mdin_tgt:sum('mdin_tgt'), gapMDIN:sum('gapMDIN'), achMDIN:avg('achMDIN'),
+    qris_mtd:sum('qris_mtd'), qris_tgt:sum('qris_tgt'), gapQRIS:sum('gapQRIS'), achQRIS:avg('achQRIS'),
+    sli_mtd:sum('sli_mtd'), sli_tgt:sum('sli_tgt'), gapSLI:sum('gapSLI'), achSLI:avg('achSLI'),
+    cif_mtd:sum('cif_mtd'), cif_tgt:sum('cif_tgt'), gapCIF:sum('gapCIF'), achCIF:avg('achCIF')
+  };
   }
 
   function formatNum(val, unit='') {
@@ -260,19 +284,24 @@
     ];
     
     params.forEach(p => {
-      const m0 = total[p.metrics[0].k], m1 = total[p.metrics[1].k], gap = total[p.metrics[2].k], ach = total[p.metrics[3].k];
-      const gapClass = gap >= 0 ? 'pos' : 'neg';
-      const achClass = getAchieveClass(ach);
-      const card = document.createElement('div');
-      card.className = `param-card ${p.color}`;
-      card.innerHTML = `
-        <div class="title">${p.name} <span class="tag mtd">MTD</span></div>
-        <div class="metric-row"><span class="label">${p.metrics[0].l}</span><span class="value">${formatNum(m0,p.unit)}</span></div>
-        <div class="metric-row"><span class="label">${p.metrics[1].l}</span><span class="value">${formatNum(m1,p.unit)}</span></div>
-        <div class="metric-row gap"><span class="label">${p.metrics[2].l}</span><span class="value ${gapClass}">${formatNum(gap,p.unit)}</span></div>
-        <div class="achievement"><span class="label">${p.metrics[3].l}</span><div class="value ${achClass}">${ach.toFixed(1)}%</div><div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,ach)}%; background:${ach>=100?'var(--success)':ach>=50?'var(--warning)':'var(--danger)'}"></div></div></div>`;
-      container.appendChild(card);
-    });
+  const m0 = total[p.metrics[0].k], m1 = total[p.metrics[1].k], gap = total[p.metrics[2].k], ach = total[p.metrics[3].k];
+  const gapClass = gap >= 0 ? 'pos' : 'neg';
+  const achClass = getAchieveClass(ach);
+  
+  // 🎯 Tambahkan badge "Target 50M" khusus untuk SME saat filter ALL
+  const isSmeAll = (p.id === 'sme' && coBr === 'ALL' && br === 'ALL');
+  const specialBadge = isSmeAll ? '<span class="tag special">★ Target 50M</span>' : '';
+  
+  const card = document.createElement('div');
+  card.className = `param-card ${p.color}`;
+  card.innerHTML = `
+    <div class="title">${p.name} <span class="tag mtd">MTD</span>${specialBadge}</div>
+    <div class="metric-row"><span class="label">${p.metrics[0].l}</span><span class="value">${formatNum(m0,p.unit)}</span></div>
+    <div class="metric-row"><span class="label">${p.metrics[1].l}</span><span class="value">${formatNum(m1,p.unit)}</span></div>
+    <div class="metric-row gap"><span class="label">${p.metrics[2].l}</span><span class="value ${gapClass}">${formatNum(gap,p.unit)}</span></div>
+    <div class="achievement"><span class="label">${p.metrics[3].l}</span><div class="value ${achClass}">${ach.toFixed(1)}%</div><div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,ach)}%; background:${ach>=100?'var(--success)':ach>=50?'var(--warning)':'var(--danger)'}"></div></div></div>`;
+  container.appendChild(card);
+  });
     
     ['CA','SA','FU'].forEach(k => {
       document.getElementById('sumGap'+k).textContent = formatNum(total['gap'+k],'M');
