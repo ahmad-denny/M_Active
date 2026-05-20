@@ -63,7 +63,7 @@
   <div class="meta"><b>Leading Indicator Dashboard</b></div>
   <div class="meta" id="selectedBranchDisplay">📍 <span id="branchNameText">Region Sumatera</span></div>
   <div class="meta">📅 Per: 18 Mei 2026 | 📆 Hari Kerja: 16</div>
-  <button id="themeToggle" class="theme-toggle">🌙 Dark</button>
+  <button id="themeToggle" class="theme-toggle">🌙</button>
 </div>
   <div class="filters">
     <div><label>📍 Co-Branch</label><select id="coBranchFilter"><option value="ALL">Semua Co-Branch</option><option value="BANDA ACEH">BANDA ACEH</option><option value="BENGKULU">BENGKULU</option><option value="LAMPUNG">LAMPUNG</option><option value="MEDAN BALAIKOTA">MEDAN BALAIKOTA</option><option value="MEDAN BARU">MEDAN BARU</option><option value="PADANG">PADANG</option><option value="PALEMBANG">PALEMBANG</option><option value="PANGKAL PINANG">PANGKAL PINANG</option><option value="PEKANBARU">PEKANBARU</option></select></div>
@@ -137,7 +137,7 @@
   function setTheme(theme) {
     html.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    themeToggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
     themeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
   }
 
