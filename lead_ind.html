@@ -18,101 +18,42 @@
       --shadow: 0 4px 16px rgba(0,0,0,0.4); --progress-bg: #475569; --tag-bg: #1e3a8a; --tag-text: #93c5fd;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, sans-serif;
-      background: var(--bg); color: var(--text); padding: 12px; line-height: 1.4; font-size: 14px;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    .header {
-      background: var(--header-bg); color: var(--header-text); padding: 16px; border-radius: 14px;
-      margin-bottom: 14px; text-align: center; position: relative; transition: background 0.3s ease;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, sans-serif; background: var(--bg); color: var(--text); padding: 12px; line-height: 1.4; font-size: 14px; transition: background 0.3s ease, color 0.3s ease; }
+    .header { background: var(--header-bg); color: var(--header-text); padding: 16px; border-radius: 14px; margin-bottom: 14px; text-align: center; position: relative; transition: background 0.3s ease; }
     .header h1 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
     .header .meta { font-size: 0.8rem; opacity: 0.9; }
-    .theme-toggle {
-      position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.15); border: none;
-      color: var(--header-text); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
-      backdrop-filter: blur(4px); transition: background 0.2s;
-    }
+    .theme-toggle { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.15); border: none; color: var(--header-text); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; backdrop-filter: blur(4px); transition: background 0.2s; }
     .theme-toggle:hover { background: rgba(255,255,255,0.25); }
-    .filters {
-      background: var(--card-bg); padding: 14px; border-radius: 12px; margin-bottom: 14px;
-      display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end;
-      box-shadow: var(--shadow); transition: background 0.3s, box-shadow 0.3s;
-    }
+    .filters { background: var(--card-bg); padding: 14px; border-radius: 12px; margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; box-shadow: var(--shadow); transition: background 0.3s, box-shadow 0.3s; }
     .filters label { font-size: 0.75rem; color: var(--text-light); display: block; margin-bottom: 4px; }
-    .filters select {
-      width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px;
-      background: var(--input-bg); color: var(--text); transition: background 0.3s, border-color 0.3s;
-    }
-    .filters button {
-      padding: 10px 16px; background: var(--btn-bg); color: var(--btn-text); border: none;
-      border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500;
-      transition: opacity 0.2s, transform 0.1s; white-space: nowrap;
-    }
-    .filters button:hover { opacity: 0.9; }
-    .filters button:active { transform: scale(0.98); }
-    .summary-bar {
-      background: var(--card-bg); padding: 12px; border-radius: 12px; margin-bottom: 14px;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;
-      font-size: 0.8rem; box-shadow: var(--shadow); transition: background 0.3s, box-shadow 0.3s;
-    }
+    .filters select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; background: var(--input-bg); color: var(--text); transition: background 0.3s, border-color 0.3s; }
+    .filters button { padding: 10px 16px; background: var(--btn-bg); color: var(--btn-text); border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; transition: opacity 0.2s, transform 0.1s; white-space: nowrap; }
+    .filters button:hover { opacity: 0.9; } .filters button:active { transform: scale(0.98); }
+    .summary-bar { background: var(--card-bg); padding: 12px; border-radius: 12px; margin-bottom: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; font-size: 0.8rem; box-shadow: var(--shadow); transition: background 0.3s, box-shadow 0.3s; }
     .summary-item .label { color: var(--text-light); display: block; margin-bottom: 4px; }
     .summary-item .value { font-weight: 700; font-size: 1.05rem; transition: color 0.3s; }
-    .summary-item .value.neg { color: var(--danger); }
-    .summary-item .value.pos { color: var(--success); }
-    .params-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;
-    }
-    .param-card {
-      background: var(--card-bg); border-radius: 12px; padding: 14px; box-shadow: var(--shadow);
-      border-left: 4px solid var(--info); transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
-    }
+    .summary-item .value.neg { color: var(--danger); } .summary-item .value.pos { color: var(--success); }
+    .params-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+    .param-card { background: var(--card-bg); border-radius: 12px; padding: 14px; box-shadow: var(--shadow); border-left: 4px solid var(--info); transition: transform 0.2s, background 0.3s, box-shadow 0.3s; }
     .param-card:hover { transform: translateY(-3px); }
-    .param-card.ca { border-left-color: #3b82f6; } .param-card.sa { border-left-color: #8b5cf6; }
-    .param-card.fu { border-left-color: #06b6d4; } .param-card.con { border-left-color: #f59e0b; }
-    .param-card.sme { border-left-color: #16a34a; } .param-card.ph { border-left-color: #ec4899; }
-    .param-card.mdin { border-left-color: #6366f1; } .param-card.qris { border-left-color: #14b8a6; }
-    .param-card.sli { border-left-color: #f97316; } .param-card.cif { border-left-color: #84cc16; }
-    .param-card .title {
-      font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; padding-bottom: 8px;
-      border-bottom: 1px dashed var(--border); display: flex; align-items: center; gap: 6px;
-    }
+    .param-card.ca { border-left-color: #3b82f6; } .param-card.sa { border-left-color: #8b5cf6; } .param-card.fu { border-left-color: #06b6d4; } .param-card.con { border-left-color: #f59e0b; }
+    .param-card.sme { border-left-color: #16a34a; } .param-card.ph { border-left-color: #ec4899; } .param-card.mdin { border-left-color: #6366f1; } .param-card.qris { border-left-color: #14b8a6; } .param-card.sli { border-left-color: #f97316; } .param-card.cif { border-left-color: #84cc16; }
+    .param-card .title { font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--border); display: flex; align-items: center; gap: 6px; }
     .metric-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.85rem; }
-    .metric-row .label { color: var(--text-light); }
-    .metric-row .value { font-weight: 600; font-family: 'SF Mono', 'Courier New', monospace; }
-    .metric-row.gap .value.neg { color: var(--danger); font-weight: 700; }
-    .metric-row.gap .value.pos { color: var(--success); font-weight: 700; }
-    .achievement {
-      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); text-align: center;
-    }
+    .metric-row .label { color: var(--text-light); } .metric-row .value { font-weight: 600; font-family: 'SF Mono', 'Courier New', monospace; }
+    .metric-row.gap .value.neg { color: var(--danger); font-weight: 700; } .metric-row.gap .value.pos { color: var(--success); font-weight: 700; }
+    .achievement { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); text-align: center; }
     .achievement .label { font-size: 0.8rem; color: var(--text-light); }
     .achievement .value { font-size: 1.4rem; font-weight: 800; margin: 4px 0; transition: color 0.3s; }
-    .achievement .value.low { color: var(--danger); }
-    .achievement .value.mid { color: var(--warning); }
-    .achievement .value.high { color: var(--success); }
-    .progress-bar {
-      height: 6px; background: var(--progress-bg); border-radius: 3px;
-      overflow: hidden; margin-top: 6px; transition: background 0.3s;
-    }
+    .achievement .value.low { color: var(--danger); } .achievement .value.mid { color: var(--warning); } .achievement .value.high { color: var(--success); }
+    .progress-bar { height: 6px; background: var(--progress-bg); border-radius: 3px; overflow: hidden; margin-top: 6px; transition: background 0.3s; }
     .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease, background 0.3s; }
-    .tag {
-      display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;
-      margin-left: 6px; background: var(--tag-bg); color: var(--tag-text); transition: background 0.3s, color 0.3s;
-    }
-    .footer {
-      text-align: center; padding: 20px 10px; color: var(--text-light); font-size: 0.75rem;
-      margin-top: 20px; transition: color 0.3s;
-    }
-    @media (max-width: 600px) {
-      .filters { grid-template-columns: 1fr; }
-      .summary-bar { grid-template-columns: repeat(2, 1fr); }
-      .params-grid { grid-template-columns: 1fr; }
-    }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; margin-left: 6px; background: var(--tag-bg); color: var(--tag-text); transition: background 0.3s, color 0.3s; }
+    .footer { text-align: center; padding: 20px 10px; color: var(--text-light); font-size: 0.75rem; margin-top: 20px; transition: color 0.3s; }
+    @media (max-width: 600px) { .filters { grid-template-columns: 1fr; } .summary-bar { grid-template-columns: repeat(2, 1fr); } .params-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
   <div class="header">
     <h1>🏦 Bank Muamalat</h1>
     <div class="meta">📅 Per: 18 Mei 2026 | 📆 Hari Kerja: 16</div>
@@ -120,25 +61,8 @@
   </div>
 
   <div class="filters">
-    <div>
-      <label>📍 Co-Branch</label>
-      <select id="coBranchFilter">
-        <option value="ALL">Semua Co-Branch</option>
-        <option value="BANDA ACEH">BANDA ACEH</option>
-        <option value="BENGKULU">BENGKULU</option>
-        <option value="LAMPUNG">LAMPUNG</option>
-        <option value="MEDAN BALAIKOTA">MEDAN BALAIKOTA</option>
-        <option value="MEDAN BARU">MEDAN BARU</option>
-        <option value="PADANG">PADANG</option>
-        <option value="PALEMBANG">PALEMBANG</option>
-        <option value="PANGKAL PINANG">PANGKAL PINANG</option>
-        <option value="PEKANBARU">PEKANBARU</option>
-      </select>
-    </div>
-    <div>
-      <label>🏢 Branch</label>
-      <select id="branchFilter"><option value="ALL">Semua Branch</option></select>
-    </div>
+    <div><label>📍 Co-Branch</label><select id="coBranchFilter"><option value="ALL">Semua Co-Branch</option><option value="BANDA ACEH">BANDA ACEH</option><option value="BENGKULU">BENGKULU</option><option value="LAMPUNG">LAMPUNG</option><option value="MEDAN BALAIKOTA">MEDAN BALAIKOTA</option><option value="MEDAN BARU">MEDAN BARU</option><option value="PADANG">PADANG</option><option value="PALEMBANG">PALEMBANG</option><option value="PANGKAL PINANG">PANGKAL PINANG</option><option value="PEKANBARU">PEKANBARU</option></select></div>
+    <div><label>🏢 Branch</label><select id="branchFilter"><option value="ALL">Semua Branch</option></select></div>
     <button onclick="resetDashboard()">🔄 Reset Filter</button>
   </div>
 
@@ -150,57 +74,51 @@
   </div>
 
   <div class="params-grid" id="paramsContainer"></div>
-
-  <div class="footer">
-    💡 Data source: Sheet NTbl | Update hanya di tabel sumber<br>
-    📱 Optimized for Mobile & Web | Theme: <span id="themeLabel">Light</span>
-  </div>
+  <div class="footer">💡 Data source: Sheet NTbl | Update hanya di tabel sumber<br>📱 Optimized for Mobile & Web | Theme: <span id="themeLabel">Light</span></div>
 
 <script>
-  // ================= DATA NTBL (UPDATE HANYA DI BAGIAN INI) =================
   const ntData = [
-    {co:"BANDA ACEH",br:"BANDA ACEH",tp:"KCU D",ca_mtd:0.1,ca_ytd:1.5,ca_tgt:1.2,sa_mtd:-0.6,sa_ytd:-5.9,sa_tgt:4.6,fu_mtd:-0.7,fu_ytd:-9.0,fu_tgt:9.1,con_mtd:0.01,con_ytd:1.40,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:16,ph_ytd:136,ph_tgt:112,mdin_mtd:30,mdin_ytd:243,mdin_tgt:256,qris_mtd:3,qris_ytd:21,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:36,cif_ytd:264,cif_tgt:288},
-    {co:"BANDA ACEH",br:"KCP LHOKSEUMAWE",tp:"KCP D",ca_mtd:0.2,ca_ytd:-1.6,ca_tgt:1.2,sa_mtd:0.2,sa_ytd:-6.2,sa_tgt:4.6,fu_mtd:0.3,fu_ytd:-11.4,fu_tgt:9.1,con_mtd:0.36,con_ytd:5.4,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:23,ph_ytd:101,ph_tgt:112,mdin_mtd:24,mdin_ytd:357,mdin_tgt:256,qris_mtd:2,qris_ytd:18,qris_tgt:64,sli_mtd:126,sli_ytd:0,sli_tgt:112,cif_mtd:45,cif_ytd:440,cif_tgt:288},
-    {co:"BANDA ACEH",br:"LANGSA",tp:"KCU NC",ca_mtd:-0.0,ca_ytd:2.1,ca_tgt:1.2,sa_mtd:-0.0,sa_ytd:-1.0,sa_tgt:4.6,fu_mtd:0.7,fu_ytd:1.6,fu_tgt:9.1,con_mtd:0.36,con_ytd:1.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:15,ph_ytd:94,ph_tgt:112,mdin_mtd:15,mdin_ytd:304,mdin_tgt:256,qris_mtd:3,qris_ytd:24,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:34,cif_ytd:352,cif_tgt:288},
-    {co:"BENGKULU",br:"BENGKULU",tp:"KCU D",ca_mtd:-0.1,ca_ytd:8.2,ca_tgt:1.2,sa_mtd:-0.1,sa_ytd:-6.6,sa_tgt:4.6,fu_mtd:-1.5,fu_ytd:5.9,fu_tgt:9.1,con_mtd:0.30,con_ytd:12.4,con_tgt:3.0,sme_mtd:0,sme_ytd:2.6,sme_tgt:0,ph_mtd:21,ph_ytd:167,ph_tgt:112,mdin_mtd:21,mdin_ytd:192,mdin_tgt:256,qris_mtd:10,qris_ytd:34,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:36,cif_ytd:259,cif_tgt:288},
-    {co:"BENGKULU",br:"KCP CURUP",tp:"KCP D",ca_mtd:-1.7,ca_ytd:-1.9,ca_tgt:1.2,sa_mtd:-1.7,sa_ytd:-4.0,sa_tgt:4.6,fu_mtd:-1.4,fu_ytd:-6.1,fu_tgt:9.1,con_mtd:0.17,con_ytd:6.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:19,ph_ytd:116,ph_tgt:112,mdin_mtd:22,mdin_ytd:244,mdin_tgt:256,qris_mtd:13,qris_ytd:46,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:26,cif_ytd:328,cif_tgt:288},
-    {co:"BENGKULU",br:"KCP ARGA MAKMUR",tp:"KCP NC",ca_mtd:0.2,ca_ytd:-0.6,ca_tgt:1.2,sa_mtd:0.2,sa_ytd:1.9,sa_tgt:4.6,fu_mtd:1.8,fu_ytd:2.8,fu_tgt:9.1,con_mtd:0.15,con_ytd:1.8,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:3,ph_ytd:75,ph_tgt:112,mdin_mtd:12,mdin_ytd:132,mdin_tgt:256,qris_mtd:19,qris_ytd:48,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:11,cif_ytd:198,cif_tgt:288},
-    {co:"BENGKULU",br:"KCP MANNA BENGKULU",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-0.4,sa_tgt:4.6,fu_mtd:0.3,fu_ytd:-1.8,fu_tgt:9.1,con_mtd:0.08,con_ytd:0.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:6,ph_ytd:43,ph_tgt:112,mdin_mtd:5,mdin_ytd:63,mdin_tgt:256,qris_mtd:6,qris_ytd:13,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:13,cif_ytd:93,cif_tgt:288},
-    {co:"BENGKULU",br:"JAMBI",tp:"KCU D",ca_mtd:0.9,ca_ytd:2.0,ca_tgt:1.2,sa_mtd:0.9,sa_ytd:-3.7,sa_tgt:4.6,fu_mtd:0.6,fu_ytd:-2.0,fu_tgt:9.1,con_mtd:0.43,con_ytd:4.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:5,ph_ytd:86,ph_tgt:112,mdin_mtd:9,mdin_ytd:146,mdin_tgt:256,qris_mtd:7,qris_ytd:30,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:13,cif_ytd:148,cif_tgt:288},
-    {co:"BENGKULU",br:"KCP MUARA BUNGO",tp:"KCP NC",ca_mtd:0.0,ca_ytd:0.1,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-1.4,sa_tgt:4.6,fu_mtd:0.5,fu_ytd:-0.7,fu_tgt:9.1,con_mtd:0.17,con_ytd:3.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:24,ph_ytd:102,ph_tgt:112,mdin_mtd:39,mdin_ytd:169,mdin_tgt:256,qris_mtd:6,qris_ytd:30,qris_tgt:64,sli_mtd:32,sli_ytd:0,sli_tgt:112,cif_mtd:50,cif_ytd:178,cif_tgt:288},
-    {co:"LAMPUNG",br:"LAMPUNG",tp:"KCU C",ca_mtd:3.3,ca_ytd:41.7,ca_tgt:1.2,sa_mtd:3.3,sa_ytd:-5.7,sa_tgt:4.6,fu_mtd:1.8,fu_ytd:41.1,fu_tgt:9.1,con_mtd:0.31,con_ytd:5.2,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:32,ph_ytd:202,ph_tgt:112,mdin_mtd:42,mdin_ytd:302,mdin_tgt:256,qris_mtd:5,qris_ytd:17,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:43,cif_ytd:257,cif_tgt:288},
-    {co:"LAMPUNG",br:"KCP METRO LAMPUNG",tp:"KCP D",ca_mtd:0.7,ca_ytd:-4.4,ca_tgt:1.2,sa_mtd:0.7,sa_ytd:-5.1,sa_tgt:4.6,fu_mtd:0.4,fu_ytd:-16.4,fu_tgt:9.1,con_mtd:0.03,con_ytd:4.5,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:52,ph_ytd:255,ph_tgt:112,mdin_mtd:37,mdin_ytd:319,mdin_tgt:256,qris_mtd:2,qris_ytd:28,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:73,cif_ytd:450,cif_tgt:288},
-    {co:"LAMPUNG",br:"KCP ZA PAGAR ALAM LAMPUNG",tp:"KCP NC",ca_mtd:1.2,ca_ytd:2.8,ca_tgt:1.2,sa_mtd:1.2,sa_ytd:-2.5,sa_tgt:4.6,fu_mtd:-0.3,fu_ytd:0.5,fu_tgt:9.1,con_mtd:0.27,con_ytd:5.8,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:8,ph_ytd:42,ph_tgt:112,mdin_mtd:26,mdin_ytd:257,mdin_tgt:256,qris_mtd:4,qris_ytd:29,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:31,cif_ytd:253,cif_tgt:288},
-    {co:"LAMPUNG",br:"KCP KOTABUMI LAMPUNG",tp:"KCP NC",ca_mtd:-1.6,ca_ytd:-2.0,ca_tgt:1.2,sa_mtd:-1.6,sa_ytd:1.2,sa_tgt:4.6,fu_mtd:-0.8,fu_ytd:-15.8,fu_tgt:9.1,con_mtd:0.04,con_ytd:5.8,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:37,ph_ytd:162,ph_tgt:112,mdin_mtd:20,mdin_ytd:176,mdin_tgt:256,qris_mtd:1,qris_ytd:21,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:47,cif_ytd:224,cif_tgt:288},
-    {co:"LAMPUNG",br:"KCP BANDAR JAYA",tp:"KCP NC",ca_mtd:0.3,ca_ytd:0.9,ca_tgt:1.2,sa_mtd:0.3,sa_ytd:1.0,sa_tgt:4.6,fu_mtd:-0.4,fu_ytd:-8.3,fu_tgt:9.1,con_mtd:0.01,con_ytd:6.4,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:66,ph_ytd:295,ph_tgt:112,mdin_mtd:10,mdin_ytd:91,mdin_tgt:256,qris_mtd:1,qris_ytd:7,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:73,cif_ytd:349,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"MEDAN BALAIKOTA",tp:"KCU C",ca_mtd:-1.1,ca_ytd:0.1,ca_tgt:1.2,sa_mtd:-1.1,sa_ytd:-10.5,sa_tgt:4.6,fu_mtd:-2.9,fu_ytd:-1.7,fu_tgt:9.1,con_mtd:0.53,con_ytd:13.4,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:36,ph_ytd:224,ph_tgt:112,mdin_mtd:46,mdin_ytd:296,mdin_tgt:256,qris_mtd:13,qris_ytd:52,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:50,cif_ytd:276,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"KCP SERDANG",tp:"KCP NC",ca_mtd:-0.6,ca_ytd:-0.7,ca_tgt:1.2,sa_mtd:-0.6,sa_ytd:-1.8,sa_tgt:4.6,fu_mtd:0.6,fu_ytd:0.8,fu_tgt:9.1,con_mtd:0.15,con_ytd:3.6,con_tgt:3.0,sme_mtd:0,sme_ytd:6.5,sme_tgt:0,ph_mtd:6,ph_ytd:19,ph_tgt:112,mdin_mtd:13,mdin_ytd:137,mdin_tgt:256,qris_mtd:2,qris_ytd:21,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:11,cif_ytd:123,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"KCP SUKARAMAI",tp:"KCP D",ca_mtd:-0.9,ca_ytd:2.0,ca_tgt:1.2,sa_mtd:-0.9,sa_ytd:-4.9,sa_tgt:4.6,fu_mtd:-2.7,fu_ytd:-2.9,fu_tgt:9.1,con_mtd:0.07,con_ytd:1.9,con_tgt:3.0,sme_mtd:0,sme_ytd:7.1,sme_tgt:0,ph_mtd:2,ph_ytd:22,ph_tgt:112,mdin_mtd:12,mdin_ytd:108,mdin_tgt:256,qris_mtd:3,qris_ytd:16,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:14,cif_ytd:107,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"PADANG SIDEMPUAN",tp:"KCU NC",ca_mtd:-0.1,ca_ytd:1.1,ca_tgt:1.2,sa_mtd:-0.1,sa_ytd:-4.0,sa_tgt:4.6,fu_mtd:-1.1,fu_ytd:-1.7,fu_tgt:9.1,con_mtd:0.15,con_ytd:3.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:9,ph_ytd:84,ph_tgt:112,mdin_mtd:21,mdin_ytd:412,mdin_tgt:256,qris_mtd:11,qris_ytd:48,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:23,cif_ytd:374,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"KCP PANYABUNGAN",tp:"KCP NC",ca_mtd:0.0,ca_ytd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-2.3,sa_tgt:4.6,fu_mtd:-1.1,fu_ytd:-2.8,fu_tgt:9.1,con_mtd:0.01,con_ytd:1.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:21,ph_ytd:129,ph_tgt:112,mdin_mtd:25,mdin_ytd:198,mdin_tgt:256,qris_mtd:2,qris_ytd:30,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:27,cif_ytd:201,cif_tgt:288},
-    {co:"MEDAN BARU",br:"MEDAN BARU",tp:"KCU D",ca_mtd:2.2,ca_ytd:-2.2,ca_tgt:1.2,sa_mtd:2.2,sa_ytd:-7.9,sa_tgt:4.6,fu_mtd:0.5,fu_ytd:-12.3,fu_tgt:9.1,con_mtd:0.35,con_ytd:8.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:14,ph_ytd:86,ph_tgt:112,mdin_mtd:63,mdin_ytd:584,mdin_tgt:256,qris_mtd:14,qris_ytd:44,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:62,cif_ytd:559,cif_tgt:288},
-    {co:"MEDAN BARU",br:"PEMATANG SIANTAR",tp:"KCU NC",ca_mtd:-0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:-0.0,sa_ytd:-0.3,sa_tgt:4.6,fu_mtd:-0.8,fu_ytd:-1.1,fu_tgt:9.1,con_mtd:0.10,con_ytd:2.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:2,ph_ytd:12,ph_tgt:112,mdin_mtd:9,mdin_ytd:85,mdin_tgt:256,qris_mtd:2,qris_ytd:14,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:15,cif_ytd:101,cif_tgt:288},
-    {co:"MEDAN BARU",br:"KCP KISARAN",tp:"KCP NC",ca_mtd:-0.6,ca_ytd:-1.9,ca_tgt:1.2,sa_mtd:-0.6,sa_ytd:2.9,sa_tgt:4.6,fu_mtd:-0.7,fu_ytd:-1.5,fu_tgt:9.1,con_mtd:2.11,con_ytd:4.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:4,ph_ytd:40,ph_tgt:112,mdin_mtd:28,mdin_ytd:128,mdin_tgt:256,qris_mtd:8,qris_ytd:25,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:29,cif_ytd:154,cif_tgt:288},
-    {co:"MEDAN BARU",br:"KCP BINJAI",tp:"KCP NC",ca_mtd:0.1,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:0.1,sa_ytd:-2.5,sa_tgt:4.6,fu_mtd:-2.7,fu_ytd:-4.6,fu_tgt:9.1,con_mtd:0.04,con_ytd:5.5,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:8,ph_ytd:43,ph_tgt:112,mdin_mtd:13,mdin_ytd:133,mdin_tgt:256,qris_mtd:1,qris_ytd:10,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:15,cif_ytd:145,cif_tgt:288},
-    {co:"MEDAN BARU",br:"KCP STABAT",tp:"KCP NC",ca_mtd:0.0,ca_ytd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-0.7,sa_tgt:4.6,fu_mtd:-1.7,fu_ytd:0.3,fu_tgt:9.1,con_mtd:0.28,con_ytd:4.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:11,ph_ytd:60,ph_tgt:112,mdin_mtd:12,mdin_ytd:192,mdin_tgt:256,qris_mtd:3,qris_ytd:11,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:22,cif_ytd:224,cif_tgt:288},
-    {co:"PADANG",br:"PADANG",tp:"KCU D",ca_mtd:0.9,ca_ytd:9.2,ca_tgt:1.2,sa_mtd:0.9,sa_ytd:-7.1,sa_tgt:4.6,fu_mtd:-3.0,fu_ytd:-3.1,fu_tgt:9.1,con_mtd:0.60,con_ytd:10.4,con_tgt:3.0,sme_mtd:0,sme_ytd:6.8,sme_tgt:0,ph_mtd:28,ph_ytd:176,ph_tgt:112,mdin_mtd:28,mdin_ytd:529,mdin_tgt:256,qris_mtd:1,qris_ytd:21,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:23,cif_ytd:457,cif_tgt:288},
-    {co:"PADANG",br:"KCP BUKITTINGGI",tp:"KCP D",ca_mtd:-0.1,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:-0.1,sa_ytd:-4.1,sa_tgt:4.6,fu_mtd:-1.1,fu_ytd:-7.5,fu_tgt:9.1,con_mtd:0.33,con_ytd:2.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:2,ph_ytd:17,ph_tgt:112,mdin_mtd:19,mdin_ytd:252,mdin_tgt:256,qris_mtd:1,qris_ytd:14,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:19,cif_ytd:155,cif_tgt:288},
-    {co:"PADANG",br:"KCP PAYAKUMBUH",tp:"KCP D",ca_mtd:0.2,ca_ytd:-3.7,ca_tgt:1.2,sa_mtd:0.2,sa_ytd:-9.1,sa_tgt:4.6,fu_mtd:0.5,fu_ytd:-39.9,fu_tgt:9.1,con_mtd:0.17,con_ytd:7.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:3,ph_ytd:22,ph_tgt:112,mdin_mtd:10,mdin_ytd:90,mdin_tgt:256,qris_mtd:5,qris_ytd:14,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:15,cif_ytd:74,cif_tgt:288},
-    {co:"PADANG",br:"KCP SOLOK",tp:"KCP NC",ca_mtd:-0.1,ca_ytd:-0.3,ca_tgt:1.2,sa_mtd:-0.1,sa_ytd:-2.5,sa_tgt:4.6,fu_mtd:-1.2,fu_ytd:-4.3,fu_tgt:9.1,con_mtd:0.10,con_ytd:2.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:2,ph_ytd:30,ph_tgt:112,mdin_mtd:12,mdin_ytd:157,mdin_tgt:256,qris_mtd:1,qris_ytd:7,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:9,cif_ytd:127,cif_tgt:288},
-    {co:"PALEMBANG",br:"PALEMBANG",tp:"KCU D",ca_mtd:-4.1,ca_ytd:-8.2,ca_tgt:1.2,sa_mtd:-4.1,sa_ytd:2.4,sa_tgt:4.6,fu_mtd:-2.6,fu_ytd:-30.3,fu_tgt:9.1,con_mtd:0.31,con_ytd:8.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:35,ph_ytd:117,ph_tgt:112,mdin_mtd:36,mdin_ytd:288,mdin_tgt:256,qris_mtd:4,qris_ytd:23,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:37,cif_ytd:215,cif_tgt:288},
-    {co:"PALEMBANG",br:"KCP PLAJU",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-1.6,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-0.3,sa_tgt:4.6,fu_mtd:-0.2,fu_ytd:-0.1,fu_tgt:9.1,con_mtd:0.07,con_ytd:3.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:18,ph_ytd:68,ph_tgt:112,mdin_mtd:14,mdin_ytd:172,mdin_tgt:256,qris_mtd:10,qris_ytd:27,qris_tgt:64,sli_mtd:54,sli_ytd:0,sli_tgt:112,cif_mtd:46,cif_ytd:172,cif_tgt:288},
-    {co:"PALEMBANG",br:"KCP BATURAJA",tp:"KCP NC",ca_mtd:0.2,ca_ytd:-1.7,ca_tgt:1.2,sa_mtd:0.2,sa_ytd:-1.7,sa_tgt:4.6,fu_mtd:-0.1,fu_ytd:-3.5,fu_tgt:9.1,con_mtd:0.43,con_ytd:3.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:7,ph_ytd:78,ph_tgt:112,mdin_mtd:11,mdin_ytd:71,mdin_tgt:256,qris_mtd:1,qris_ytd:9,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:17,cif_ytd:109,cif_tgt:288},
-    {co:"PALEMBANG",br:"KCP ENIM",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-0.3,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-3.7,sa_tgt:4.6,fu_mtd:-0.2,fu_ytd:-32.6,fu_tgt:9.1,con_mtd:0.21,con_ytd:1.3,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:9,ph_ytd:52,ph_tgt:112,mdin_mtd:8,mdin_ytd:81,mdin_tgt:256,qris_mtd:2,qris_ytd:6,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:12,cif_ytd:89,cif_tgt:288},
-    {co:"PANGKAL PINANG",br:"PANGKAL PINANG",tp:"KCU C",ca_mtd:0.1,ca_ytd:-6.1,ca_tgt:1.2,sa_mtd:0.1,sa_ytd:-4.9,sa_tgt:4.6,fu_mtd:3.2,fu_ytd:-3.1,fu_tgt:9.1,con_mtd:0.15,con_ytd:6.5,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:19,ph_ytd:73,ph_tgt:112,mdin_mtd:35,mdin_ytd:235,mdin_tgt:256,qris_mtd:2,qris_ytd:22,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:32,cif_ytd:199,cif_tgt:288},
-    {co:"PANGKAL PINANG",br:"KCP TANJUNG PANDAN",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-4.5,sa_tgt:4.6,fu_mtd:-0.1,fu_ytd:-4.9,fu_tgt:9.1,con_mtd:0.29,con_ytd:3.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:4,ph_ytd:17,ph_tgt:112,mdin_mtd:13,mdin_ytd:94,mdin_tgt:256,qris_mtd:5,qris_ytd:13,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:10,cif_ytd:73,cif_tgt:288},
-    {co:"PANGKAL PINANG",br:"KCP SUNGAILIAT",tp:"KCP D",ca_mtd:-0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:-0.0,sa_ytd:-2.8,sa_tgt:4.6,fu_mtd:-0.3,fu_ytd:-4.3,fu_tgt:9.1,con_mtd:1.03,con_ytd:5.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:24,ph_ytd:89,ph_tgt:112,mdin_mtd:30,mdin_ytd:152,mdin_tgt:256,qris_mtd:7,qris_ytd:31,qris_tgt:64,sli_mtd:20,sli_ytd:0,sli_tgt:112,cif_mtd:28,cif_ytd:178,cif_tgt:288},
-    {co:"PANGKAL PINANG",br:"KCP KOBA",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-1.3,sa_tgt:4.6,fu_mtd:-0.2,fu_ytd:-1.7,fu_tgt:9.1,con_mtd:0.06,con_ytd:0.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:14,ph_ytd:79,ph_tgt:112,mdin_mtd:21,mdin_ytd:143,mdin_tgt:256,qris_mtd:4,qris_ytd:15,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:19,cif_ytd:121,cif_tgt:288},
-    {co:"PEKANBARU",br:"PEKANBARU",tp:"KCU C",ca_mtd:-0.3,ca_ytd:6.3,ca_tgt:1.2,sa_mtd:-0.3,sa_ytd:-10.0,sa_tgt:4.6,fu_mtd:-1.9,fu_ytd:-37.5,fu_tgt:9.1,con_mtd:0.65,con_ytd:8.3,con_tgt:3.0,sme_mtd:0,sme_ytd:5.7,sme_tgt:0,ph_mtd:23,ph_ytd:153,ph_tgt:112,mdin_mtd:35,mdin_ytd:325,mdin_tgt:256,qris_mtd:2,qris_ytd:20,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:34,cif_ytd:274,cif_tgt:288},
-    {co:"PEKANBARU",br:"KCP KAMPAR",tp:"KCP NC",ca_mtd:0.4,ca_ytd:-2.4,ca_tgt:1.2,sa_mtd:0.4,sa_ytd:-0.5,sa_tgt:4.6,fu_mtd:-0.2,fu_ytd:-3.4,fu_tgt:9.1,con_mtd:0.19,con_ytd:7.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:42,ph_ytd:138,ph_tgt:112,mdin_mtd:103,mdin_ytd:263,mdin_tgt:256,qris_mtd:3,qris_ytd:20,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:110,cif_ytd:299,cif_tgt:288},
-    {co:"PEKANBARU",br:"BATAM",tp:"KCU D",ca_mtd:-0.4,ca_ytd:-3.0,ca_tgt:1.2,sa_mtd:-0.4,sa_ytd:-6.1,sa_tgt:4.6,fu_mtd:-1.3,fu_ytd:-9.3,fu_tgt:9.1,con_mtd:0.05,con_ytd:3.5,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:13,ph_ytd:70,ph_tgt:112,mdin_mtd:18,mdin_ytd:181,mdin_tgt:256,qris_mtd:8,qris_ytd:24,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:13,cif_ytd:107,cif_tgt:288},
-    {co:"PEKANBARU",br:"TANJUNG PINANG",tp:"KCU D",ca_mtd:-0.0,ca_ytd:1.7,ca_tgt:1.2,sa_mtd:-0.0,sa_ytd:-1.1,sa_tgt:4.6,fu_mtd:-0.4,fu_ytd:-2.6,fu_tgt:9.1,con_mtd:0.17,con_ytd:6.8,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:3,ph_ytd:30,ph_tgt:112,mdin_mtd:7,mdin_ytd:115,mdin_tgt:256,qris_mtd:6,qris_ytd:13,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:7,cif_ytd:93,cif_tgt:288}
+    {co:"BANDA ACEH",br:"BANDA ACEH",tp:"KCU D",ca_mtd:0.1,ca_tgt:1.2,sa_mtd:-0.6,sa_tgt:4.6,fu_mtd:-0.7,fu_tgt:9.1,con_mtd:0.01,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:16,ph_tgt:112,mdin_mtd:30,mdin_tgt:256,qris_mtd:3,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:36,cif_tgt:288},
+    {co:"BANDA ACEH",br:"KCP LHOKSEUMAWE",tp:"KCP D",ca_mtd:0.2,ca_tgt:1.2,sa_mtd:0.2,sa_tgt:4.6,fu_mtd:0.3,fu_tgt:9.1,con_mtd:0.36,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:23,ph_tgt:112,mdin_mtd:24,mdin_tgt:256,qris_mtd:2,qris_tgt:64,sli_mtd:126,sli_tgt:112,cif_mtd:45,cif_tgt:288},
+    {co:"BANDA ACEH",br:"LANGSA",tp:"KCU NC",ca_mtd:-0.0,ca_tgt:1.2,sa_mtd:-0.0,sa_tgt:4.6,fu_mtd:0.7,fu_tgt:9.1,con_mtd:0.36,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:15,ph_tgt:112,mdin_mtd:15,mdin_tgt:256,qris_mtd:3,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:34,cif_tgt:288},
+    {co:"BENGKULU",br:"BENGKULU",tp:"KCU D",ca_mtd:-0.1,ca_tgt:1.2,sa_mtd:-0.1,sa_tgt:4.6,fu_mtd:-1.5,fu_tgt:9.1,con_mtd:0.30,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:21,ph_tgt:112,mdin_mtd:21,mdin_tgt:256,qris_mtd:10,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:36,cif_tgt:288},
+    {co:"BENGKULU",br:"KCP CURUP",tp:"KCP D",ca_mtd:-1.7,ca_tgt:1.2,sa_mtd:-1.7,sa_tgt:4.6,fu_mtd:-1.4,fu_tgt:9.1,con_mtd:0.17,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:19,ph_tgt:112,mdin_mtd:22,mdin_tgt:256,qris_mtd:13,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:26,cif_tgt:288},
+    {co:"BENGKULU",br:"KCP ARGA MAKMUR",tp:"KCP NC",ca_mtd:0.2,ca_tgt:1.2,sa_mtd:0.2,sa_tgt:4.6,fu_mtd:1.8,fu_tgt:9.1,con_mtd:0.15,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:3,ph_tgt:112,mdin_mtd:12,mdin_tgt:256,qris_mtd:19,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:11,cif_tgt:288},
+    {co:"BENGKULU",br:"KCP MANNA BENGKULU",tp:"KCP NC",ca_mtd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_tgt:4.6,fu_mtd:0.3,fu_tgt:9.1,con_mtd:0.08,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:6,ph_tgt:112,mdin_mtd:5,mdin_tgt:256,qris_mtd:6,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:13,cif_tgt:288},
+    {co:"BENGKULU",br:"JAMBI",tp:"KCU D",ca_mtd:0.9,ca_tgt:1.2,sa_mtd:0.9,sa_tgt:4.6,fu_mtd:0.6,fu_tgt:9.1,con_mtd:0.43,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:5,ph_tgt:112,mdin_mtd:9,mdin_tgt:256,qris_mtd:7,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:13,cif_tgt:288},
+    {co:"BENGKULU",br:"KCP MUARA BUNGO",tp:"KCP NC",ca_mtd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_tgt:4.6,fu_mtd:0.5,fu_tgt:9.1,con_mtd:0.17,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:24,ph_tgt:112,mdin_mtd:39,mdin_tgt:256,qris_mtd:6,qris_tgt:64,sli_mtd:32,sli_tgt:112,cif_mtd:50,cif_tgt:288},
+    {co:"LAMPUNG",br:"LAMPUNG",tp:"KCU C",ca_mtd:3.3,ca_tgt:1.2,sa_mtd:3.3,sa_tgt:4.6,fu_mtd:1.8,fu_tgt:9.1,con_mtd:0.31,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:32,ph_tgt:112,mdin_mtd:42,mdin_tgt:256,qris_mtd:5,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:43,cif_tgt:288},
+    {co:"LAMPUNG",br:"KCP METRO LAMPUNG",tp:"KCP D",ca_mtd:0.7,ca_tgt:1.2,sa_mtd:0.7,sa_tgt:4.6,fu_mtd:0.4,fu_tgt:9.1,con_mtd:0.03,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:52,ph_tgt:112,mdin_mtd:37,mdin_tgt:256,qris_mtd:2,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:73,cif_tgt:288},
+    {co:"LAMPUNG",br:"KCP ZA PAGAR ALAM LAMPUNG",tp:"KCP NC",ca_mtd:1.2,ca_tgt:1.2,sa_mtd:1.2,sa_tgt:4.6,fu_mtd:-0.3,fu_tgt:9.1,con_mtd:0.27,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:8,ph_tgt:112,mdin_mtd:26,mdin_tgt:256,qris_mtd:4,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:31,cif_tgt:288},
+    {co:"LAMPUNG",br:"KCP KOTABUMI LAMPUNG",tp:"KCP NC",ca_mtd:-1.6,ca_tgt:1.2,sa_mtd:-1.6,sa_tgt:4.6,fu_mtd:-0.8,fu_tgt:9.1,con_mtd:0.04,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:37,ph_tgt:112,mdin_mtd:20,mdin_tgt:256,qris_mtd:1,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:47,cif_tgt:288},
+    {co:"LAMPUNG",br:"KCP BANDAR JAYA",tp:"KCP NC",ca_mtd:0.3,ca_tgt:1.2,sa_mtd:0.3,sa_tgt:4.6,fu_mtd:-0.4,fu_tgt:9.1,con_mtd:0.01,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:66,ph_tgt:112,mdin_mtd:10,mdin_tgt:256,qris_mtd:1,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:73,cif_tgt:288},
+    {co:"MEDAN BALAIKOTA",br:"MEDAN BALAIKOTA",tp:"KCU C",ca_mtd:-1.1,ca_tgt:1.2,sa_mtd:-1.1,sa_tgt:4.6,fu_mtd:-2.9,fu_tgt:9.1,con_mtd:0.53,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:36,ph_tgt:112,mdin_mtd:46,mdin_tgt:256,qris_mtd:13,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:50,cif_tgt:288},
+    {co:"MEDAN BALAIKOTA",br:"KCP SERDANG",tp:"KCP NC",ca_mtd:-0.6,ca_tgt:1.2,sa_mtd:-0.6,sa_tgt:4.6,fu_mtd:0.6,fu_tgt:9.1,con_mtd:0.15,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:6,ph_tgt:112,mdin_mtd:13,mdin_tgt:256,qris_mtd:2,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:11,cif_tgt:288},
+    {co:"MEDAN BALAIKOTA",br:"KCP SUKARAMAI",tp:"KCP D",ca_mtd:-0.9,ca_tgt:1.2,sa_mtd:-0.9,sa_tgt:4.6,fu_mtd:-2.7,fu_tgt:9.1,con_mtd:0.07,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:2,ph_tgt:112,mdin_mtd:12,mdin_tgt:256,qris_mtd:3,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:14,cif_tgt:288},
+    {co:"MEDAN BALAIKOTA",br:"PADANG SIDEMPUAN",tp:"KCU NC",ca_mtd:-0.1,ca_tgt:1.2,sa_mtd:-0.1,sa_tgt:4.6,fu_mtd:-1.1,fu_tgt:9.1,con_mtd:0.15,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:9,ph_tgt:112,mdin_mtd:21,mdin_tgt:256,qris_mtd:11,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:23,cif_tgt:288},
+    {co:"MEDAN BALAIKOTA",br:"KCP PANYABUNGAN",tp:"KCP NC",ca_mtd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_tgt:4.6,fu_mtd:-1.1,fu_tgt:9.1,con_mtd:0.01,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:21,ph_tgt:112,mdin_mtd:25,mdin_tgt:256,qris_mtd:2,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:27,cif_tgt:288},
+    {co:"MEDAN BARU",br:"MEDAN BARU",tp:"KCU D",ca_mtd:2.2,ca_tgt:1.2,sa_mtd:2.2,sa_tgt:4.6,fu_mtd:0.5,fu_tgt:9.1,con_mtd:0.35,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:14,ph_tgt:112,mdin_mtd:63,mdin_tgt:256,qris_mtd:14,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:62,cif_tgt:288},
+    {co:"MEDAN BARU",br:"PEMATANG SIANTAR",tp:"KCU NC",ca_mtd:-0.0,ca_tgt:1.2,sa_mtd:-0.0,sa_tgt:4.6,fu_mtd:-0.8,fu_tgt:9.1,con_mtd:0.10,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:2,ph_tgt:112,mdin_mtd:9,mdin_tgt:256,qris_mtd:2,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:15,cif_tgt:288},
+    {co:"MEDAN BARU",br:"KCP KISARAN",tp:"KCP NC",ca_mtd:-0.6,ca_tgt:1.2,sa_mtd:-0.6,sa_tgt:4.6,fu_mtd:-0.7,fu_tgt:9.1,con_mtd:2.11,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:4,ph_tgt:112,mdin_mtd:28,mdin_tgt:256,qris_mtd:8,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:29,cif_tgt:288},
+    {co:"MEDAN BARU",br:"KCP BINJAI",tp:"KCP NC",ca_mtd:0.1,ca_tgt:1.2,sa_mtd:0.1,sa_tgt:4.6,fu_mtd:-2.7,fu_tgt:9.1,con_mtd:0.04,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:8,ph_tgt:112,mdin_mtd:13,mdin_tgt:256,qris_mtd:1,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:15,cif_tgt:288},
+    {co:"MEDAN BARU",br:"KCP STABAT",tp:"KCP NC",ca_mtd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_tgt:4.6,fu_mtd:-1.7,fu_tgt:9.1,con_mtd:0.28,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:11,ph_tgt:112,mdin_mtd:12,mdin_tgt:256,qris_mtd:3,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:22,cif_tgt:288},
+    {co:"PADANG",br:"PADANG",tp:"KCU D",ca_mtd:0.9,ca_tgt:1.2,sa_mtd:0.9,sa_tgt:4.6,fu_mtd:-3.0,fu_tgt:9.1,con_mtd:0.60,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:28,ph_tgt:112,mdin_mtd:28,mdin_tgt:256,qris_mtd:1,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:23,cif_tgt:288},
+    {co:"PADANG",br:"KCP BUKITTINGGI",tp:"KCP D",ca_mtd:-0.1,ca_tgt:1.2,sa_mtd:-0.1,sa_tgt:4.6,fu_mtd:-1.1,fu_tgt:9.1,con_mtd:0.33,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:2,ph_tgt:112,mdin_mtd:19,mdin_tgt:256,qris_mtd:1,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:19,cif_tgt:288},
+    {co:"PADANG",br:"KCP PAYAKUMBUH",tp:"KCP D",ca_mtd:0.2,ca_tgt:1.2,sa_mtd:0.2,sa_tgt:4.6,fu_mtd:0.5,fu_tgt:9.1,con_mtd:0.17,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:3,ph_tgt:112,mdin_mtd:10,mdin_tgt:256,qris_mtd:5,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:15,cif_tgt:288},
+    {co:"PADANG",br:"KCP SOLOK",tp:"KCP NC",ca_mtd:-0.1,ca_tgt:1.2,sa_mtd:-0.1,sa_tgt:4.6,fu_mtd:-1.2,fu_tgt:9.1,con_mtd:0.10,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:2,ph_tgt:112,mdin_mtd:12,mdin_tgt:256,qris_mtd:1,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:9,cif_tgt:288},
+    {co:"PALEMBANG",br:"PALEMBANG",tp:"KCU D",ca_mtd:-4.1,ca_tgt:1.2,sa_mtd:-4.1,sa_tgt:4.6,fu_mtd:-2.6,fu_tgt:9.1,con_mtd:0.31,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:35,ph_tgt:112,mdin_mtd:36,mdin_tgt:256,qris_mtd:4,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:37,cif_tgt:288},
+    {co:"PALEMBANG",br:"KCP PLAJU",tp:"KCP NC",ca_mtd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_tgt:4.6,fu_mtd:-0.2,fu_tgt:9.1,con_mtd:0.07,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:18,ph_tgt:112,mdin_mtd:14,mdin_tgt:256,qris_mtd:10,qris_tgt:64,sli_mtd:54,sli_tgt:112,cif_mtd:46,cif_tgt:288},
+    {co:"PALEMBANG",br:"KCP BATURAJA",tp:"KCP NC",ca_mtd:0.2,ca_tgt:1.2,sa_mtd:0.2,sa_tgt:4.6,fu_mtd:-0.1,fu_tgt:9.1,con_mtd:0.43,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:7,ph_tgt:112,mdin_mtd:11,mdin_tgt:256,qris_mtd:1,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:17,cif_tgt:288},
+    {co:"PALEMBANG",br:"KCP ENIM",tp:"KCP NC",ca_mtd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_tgt:4.6,fu_mtd:-0.2,fu_tgt:9.1,con_mtd:0.21,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:9,ph_tgt:112,mdin_mtd:8,mdin_tgt:256,qris_mtd:2,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:12,cif_tgt:288},
+    {co:"PANGKAL PINANG",br:"PANGKAL PINANG",tp:"KCU C",ca_mtd:0.1,ca_tgt:1.2,sa_mtd:0.1,sa_tgt:4.6,fu_mtd:3.2,fu_tgt:9.1,con_mtd:0.15,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:19,ph_tgt:112,mdin_mtd:35,mdin_tgt:256,qris_mtd:2,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:32,cif_tgt:288},
+    {co:"PANGKAL PINANG",br:"KCP TANJUNG PANDAN",tp:"KCP NC",ca_mtd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_tgt:4.6,fu_mtd:-0.1,fu_tgt:9.1,con_mtd:0.29,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:4,ph_tgt:112,mdin_mtd:13,mdin_tgt:256,qris_mtd:5,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:10,cif_tgt:288},
+    {co:"PANGKAL PINANG",br:"KCP SUNGAILIAT",tp:"KCP D",ca_mtd:-0.0,ca_tgt:1.2,sa_mtd:-0.0,sa_tgt:4.6,fu_mtd:-0.3,fu_tgt:9.1,con_mtd:1.03,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:24,ph_tgt:112,mdin_mtd:30,mdin_tgt:256,qris_mtd:7,qris_tgt:64,sli_mtd:20,sli_tgt:112,cif_mtd:28,cif_tgt:288},
+    {co:"PANGKAL PINANG",br:"KCP KOBA",tp:"KCP NC",ca_mtd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_tgt:4.6,fu_mtd:-0.2,fu_tgt:9.1,con_mtd:0.06,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:14,ph_tgt:112,mdin_mtd:21,mdin_tgt:256,qris_mtd:4,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:19,cif_tgt:288},
+    {co:"PEKANBARU",br:"PEKANBARU",tp:"KCU C",ca_mtd:-0.3,ca_tgt:1.2,sa_mtd:-0.3,sa_tgt:4.6,fu_mtd:-1.9,fu_tgt:9.1,con_mtd:0.65,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:23,ph_tgt:112,mdin_mtd:35,mdin_tgt:256,qris_mtd:2,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:34,cif_tgt:288},
+    {co:"PEKANBARU",br:"KCP KAMPAR",tp:"KCP NC",ca_mtd:0.4,ca_tgt:1.2,sa_mtd:0.4,sa_tgt:4.6,fu_mtd:-0.2,fu_tgt:9.1,con_mtd:0.19,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:42,ph_tgt:112,mdin_mtd:103,mdin_tgt:256,qris_mtd:3,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:110,cif_tgt:288},
+    {co:"PEKANBARU",br:"BATAM",tp:"KCU D",ca_mtd:-0.4,ca_tgt:1.2,sa_mtd:-0.4,sa_tgt:4.6,fu_mtd:-1.3,fu_tgt:9.1,con_mtd:0.05,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:13,ph_tgt:112,mdin_mtd:18,mdin_tgt:256,qris_mtd:8,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:13,cif_tgt:288},
+    {co:"PEKANBARU",br:"TANJUNG PINANG",tp:"KCU D",ca_mtd:-0.0,ca_tgt:1.2,sa_mtd:-0.0,sa_tgt:4.6,fu_mtd:-0.4,fu_tgt:9.1,con_mtd:0.17,con_tgt:3.0,sme_mtd:0,sme_tgt:0,ph_mtd:3,ph_tgt:112,mdin_mtd:7,mdin_tgt:256,qris_mtd:6,qris_tgt:64,sli_mtd:0,sli_tgt:112,cif_mtd:7,cif_tgt:288}
   ];
-  // ================= AKHIR DATA NTBL =================
 
   const params = [
     {id:'ca',name:'🏦 Current Account',unit:'M',color:'ca',metrics:[{k:'ca_mtd',l:'Growth MTD'},{k:'ca_tgt',l:'Target MTD'},{k:'gapCA',l:'GAP Growth',isGap:true},{k:'achCA',l:'Achievement',isPct:true}]},
@@ -221,460 +139,19 @@
   const themeLabel = document.getElementById('themeLabel');
   const html = document.documentElement;
 
-  // 🌗 THEME LOGIC
   function setTheme(theme) {
     html.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     themeToggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
     themeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
   }
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  setTheme(savedTheme);
-  themeToggle.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  });
-
-  // 🔄 CASCADING DROPDOWN
-  coBranchSelect.addEventListener('change', () => {
-    updateBranchOptions(coBranchSelect.value);
-    renderDashboard();
-  });
-  branchSelect.addEventListener('change', renderDashboard);
+  setTheme(localStorage.getItem('theme') || 'light');
+  themeToggle.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
 
   function updateBranchOptions(selectedCo) {
     branchSelect.innerHTML = '<option value="ALL">Semua Branch</option>';
     const filtered = selectedCo === 'ALL' ? ntData : ntData.filter(d => d.co === selectedCo);
-    const uniqueBranches = [...new Set(filtered.map(d => d.br))].sort();
-    uniqueBranches.forEach(br => {
-      const opt = document.createElement('option');
-      opt.value = br; opt.textContent = br;
-      branchSelect.appendChild(opt);
-    });
-    branchSelect.value = 'ALL'; // Default ke ALL saat Co-Branch berubah
-  }
-
-  // 📊 CALCULATION & RENDER
-  function calcMetrics(data) {
-    return data.map(d => ({
-      ...d,
-      gapCA: d.ca_mtd - d.ca_tgt, gapSA: d.sa_mtd - d.sa_tgt, gapFU: d.fu_mtd - d.fu_tgt,
-      gapCon: d.con_mtd - d.con_tgt, gapSME: d.sme_mtd - d.sme_tgt, gapPH: d.ph_mtd - d.ph_tgt,
-      gapMDIN: d.mdin_mtd - d.mdin_tgt, gapQRIS: d.qris_mtd - d.qris_tgt, gapSLI: d.sli_mtd - d.sli_tgt,
-      gapCIF: d.cif_mtd - d.cif_tgt,
-      achCA: d.ca_tgt>0 ? (d.ca_mtd/d.ca_tgt*100) : 0, achSA: d.sa_tgt>0 ? (d.sa_mtd/d.sa_tgt*100) : 0,
-      achFU: d.fu_tgt>0 ? (d.fu_mtd/d.fu_tgt*100) : 0, achCon: d.con_tgt>0 ? (d.con_mtd/d.con_tgt*100) : 0,
-      achSME: d.sme_tgt>0 ? (d.sme_mtd/d.sme_tgt*100) : 0, achPH: d.ph_tgt>0 ? (d.ph_mtd/d.ph_tgt*100) : 0,
-      achMDIN: d.mdin_tgt>0 ? (d.mdin_mtd/d.mdin_tgt*100) : 0, achQRIS: d.qris_tgt>0 ? (d.qris_mtd/d.qris_tgt*100) : 0,
-      achSLI: d.sli_tgt>0 ? (d.sli_mtd/d.sli_tgt*100) : 0, achCIF: d.cif_tgt>0 ? (d.cif_mtd/d.cif_tgt*100) : 0
-    }));
-  }
-
-  function aggregate(data, coBr, br) {
-    let filtered = data;
-    if(coBr!=='ALL') filtered = filtered.filter(d=>d.co===coBr);
-    if(br!=='ALL') filtered = filtered.filter(d=>d.br===br);
-    
-    const sum = (key) => filtered.reduce((a,b)=>a+(b[key]||0),0);
-    const count = filtered.length;
-    const avg = (key) => count > 0 ? sum(key)/count : 0;
-
-    return {
-      ca_mtd:sum('ca_mtd'), ca_tgt:sum('ca_tgt'), gapCA:sum('gapCA'), achCA:avg('achCA'),
-      sa_mtd:sum('sa_mtd'), sa_tgt:sum('sa_tgt'), gapSA:sum('gapSA'), achSA:avg('achSA'),
-      fu_mtd:sum('fu_mtd'), fu_tgt:sum('fu_tgt'), gapFU:sum('gapFU'), achFU:avg('achFU'),
-      con_mtd:sum('con_mtd'), con_tgt:sum('con_tgt'), gapCon:sum('gapCon'), achCon:avg('achCon'),
-      sme_mtd:sum('sme_mtd'), sme_tgt:sum('sme_tgt'), gapSME:sum('gapSME'), achSME:avg('achSME'),
-      ph_mtd:sum('ph_mtd'), ph_tgt:sum('ph_tgt'), gapPH:sum('gapPH'), achPH:avg('achPH'),
-      mdin_mtd:sum('mdin_mtd'), mdin_tgt:sum('mdin_tgt'), gapMDIN:sum('gapMDIN'), achMDIN:avg('achMDIN'),
-      qris_mtd:sum('qris_mtd'), qris_tgt:sum('qris_tgt'), gapQRIS:sum('gapQRIS'), achQRIS:avg('achQRIS'),
-      sli_mtd:sum('sli_mtd'), sli_tgt:sum('sli_tgt'), gapSLI:sum('gapSLI'), achSLI:avg('achSLI'),
-      cif_mtd:sum('cif_mtd'), cif_tgt:sum('cif_tgt'), gapCIF:sum('gapCIF'), achCIF:avg('achCIF')
-    };
-  }
-
-  function formatNum(val, unit='') {
-    if(unit==='M') return (val>=0?'+':'') + val.toFixed(1) + ' M';
-    return val>=0 ? val.toLocaleString('id-ID') : '(' + Math.abs(val).toLocaleString('id-ID') + ')';
-  }
-
-  function getAchieveClass(pct) {
-    if(pct >= 100) return 'high';
-    if(pct >= 50) return 'mid';
-    return 'low';
-  }
-
-  function renderDashboard() {
-    const coBr = coBranchSelect.value;
-    const br = branchSelect.value;
-    const calculatedData = calcMetrics(ntData);
-    const total = aggregate(calculatedData, coBr, br);
-    const container = document.getElementById('paramsContainer');
-    container.innerHTML = '';
-    
-    params.forEach(p => {
-      const m0 = total[p.metrics[0].k], m1 = total[p.metrics[1].k], gap = total[p.metrics[2].k], ach = total[p.metrics[3].k];
-      const gapClass = gap >= 0 ? 'pos' : 'neg';
-      const achClass = getAchieveClass(ach);
-      
-      const card = document.createElement('div');
-      card.className = `param-card ${p.color}`;
-      card.innerHTML = `
-        <div class="title">${p.name} <span class="tag mtd">MTD</span></div>
-        <div class="metric-row"><span class="label">${p.metrics[0].l}</span><span class="value">${formatNum(m0,p.unit)}</span></div>
-        <div class="metric-row"><span class="label">${p.metrics[1].l}</span><span class="value">${formatNum(m1,p.unit)}</span></div>
-        <div class="metric-row gap"><span class="label">${p.metrics[2].l}</span><span class="value ${gapClass}">${formatNum(gap,p.unit)}</span></div>
-        <div class="achievement">
-          <span class="label">${p.metrics[3].l}</span>
-          <div class="value ${achClass}">${ach.toFixed(1)}%</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,ach)}%; background:${ach>=100?'var(--success)':ach>=50?'var(--warning)':'var(--danger)'}"></div></div>
-        </div>
-      `;
-      container.appendChild(card);
-    });
-    
-    document.getElementById('sumGapCA').textContent = formatNum(total.gapCA,'M');
-    document.getElementById('sumGapCA').className = `summary-item value ${total.gapCA >= 0 ? 'pos' : 'neg'}`;
-    document.getElementById('sumGapSA').textContent = formatNum(total.gapSA,'M');
-    document.getElementById('sumGapSA').className = `summary-item value ${total.gapSA >= 0 ? 'pos' : 'neg'}`;
-    document.getElementById('sumGapFU').textContent = formatNum(total.gapFU,'M');
-    document.getElementById('sumGapFU').className = `summary-item value ${total.gapFU >= 0 ? 'pos' : 'neg'}`;
-    
-    const avgAch = (total.achCA+total.achSA+total.achFU+total.achCon+total.achSME+total.achPH+total.achMDIN+total.achQRIS<think>
-Thinking Process:
-
-1.  **Analyze User Input:**
-    - The user wants to update the HTML dashboard code.
-    - Previous request context: The dashboard has a "Refresh" button. The user wants to replace this button and its functionality with a "Reset" button.
-    - The "Reset" button should restore the data and filters to their default state (i.e., Co-Branch = ALL, Branch = ALL, and refresh the dashboard view).
-    - I need to provide the complete, updated HTML file with this change implemented.
-
-2.  **Identify Key Changes Needed:**
-    - Change the button text from `🔄 Refresh` to `🔄 Reset Filter` (or similar).
-    - Change the `onclick` attribute from calling a refresh function to a new `resetFilter()` or `resetDashboard()` function.
-    - Create the `resetFilter()` function in JavaScript. This function should:
-        - Set `coBranchSelect.value = 'ALL'`
-        - Call `updateBranchOptions('ALL')` to repopulate the branch dropdown and reset it to 'ALL'.
-        - Call `renderDashboard()` to update the view.
-    - Ensure the existing event listeners for dropdown changes still work seamlessly.
-    - Maintain all other features (Dark/Light mode, responsive design, data structure).
-
-3.  **Draft the JavaScript Function:**
-    ```javascript
-    function resetFilter() {
-      coBranchSelect.value = 'ALL';
-      updateBranchOptions('ALL'); // This will also set branchSelect.value = 'ALL'
-      renderDashboard();
-    }
-    ```
-    *Wait*, `updateBranchOptions` already sets `branchSelect.value = 'ALL'` at the end of its execution. So calling `updateBranchOptions('ALL')` inside `resetFilter()` is perfect.
-
-4.  **Review the Full Code Structure to Integrate the Change:**
-    I'll take the exact previous HTML code and modify only the necessary parts:
-    - HTML: `<button onclick="resetFilter()">🔄 Reset Filter</button>`
-    - JS: Add `resetFilter()` function.
-    - Keep everything else intact.
-
-    Let's quickly verify the `updateBranchOptions` function from the previous code:
-    ```javascript
-    function updateBranchOptions(selectedCo) {
-      branchSelect.innerHTML = '<option value="ALL">Semua Branch</option>';
-      const filtered = selectedCo === 'ALL' ? ntData : ntData.filter(d => d.co === selectedCo);
-      const uniqueBranches = [...new Set(filtered.map(d => d.br))].sort();
-      uniqueBranches.forEach(br => {
-        const opt = document.createElement('option');
-        opt.value = br; opt.textContent = br;
-        branchSelect.appendChild(opt);
-      });
-      branchSelect.value = 'ALL'; // <-- Already resets branch to ALL
-    }
-    ```
-    So `resetFilter()` just needs to set Co-Branch to ALL, call `updateBranchOptions('ALL')`, and call `renderDashboard()`.
-
-5.  **Construct the Final Output:**
-    I will output the complete, ready-to-use HTML file with the requested modification. I'll make sure the formatting is clean and the code is fully functional.
-
-    Changes to make:
-    - Find `<button onclick="renderDashboard()">🔄 Refresh</button>` -> Change to `<button onclick="resetFilter()">🔄 Reset Filter</button>`
-    - Add `resetFilter()` function in `<script>`.
-    - Verify no other logic is broken.
-
-    All good. I will generate the response now. 
-    I'll also add a quick comment in the JS to indicate where the reset function is for clarity. 
-    The rest of the code remains exactly as the previous dark/light version. 
-    Proceed. 
-    *Self-Correction/Verification during drafting:*
-    Wait, in the previous code, I actually used `<button onclick="resetDashboard()">🔄 Reset Filter</button>` in my mental draft, but I'll stick to `resetFilter()` or `resetDashboard()` consistently. I'll use `resetDashboard()` as it's descriptive.
-    Let's double check the exact previous code I gave:
-    It had `<button onclick="renderDashboard()">🔄 Refresh</button>`.
-    I will replace it with `<button onclick="resetDashboard()">🔄 Reset Filter</button>`.
-    And add:
-    ```javascript
-    function resetDashboard() {
-      coBranchSelect.value = 'ALL';
-      updateBranchOptions('ALL');
-      renderDashboard();
-    }
-    ```
-    This is solid. I will output the full HTML. 
-    All other parts (CSS, Theme toggle, NTbl data, Params config, Calculation logic) remain unchanged. 
-    Ready. 
-    Output matches the final response. 
-    [Done.] 
-    *Output Generation* (Proceeds)
-</think>
-
-Berikut adalah file HTML lengkap yang sudah diperbarui. Tombol **Refresh** telah digantikan menjadi **🔄 Reset Filter** yang secara otomatis mengembalikan pilihan Co-Branch & Branch ke `ALL` dan me-refresh dashboard ke tampilan default.
-
-```html
-<!DOCTYPE html>
-<html lang="id" data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Leading Indicator - Bank Muamalat</title>
-  <style>
-    :root {
-      --bg: #f1f5f9; --card-bg: #ffffff; --border: #e2e8f0; --text: #0f172a; --text-light: #64748b;
-      --header-bg: #0f172a; --header-text: #ffffff; --btn-bg: #1e40af; --btn-text: #ffffff;
-      --input-bg: #ffffff; --success: #16a34a; --warning: #f59e0b; --danger: #dc2626; --info: #3b82f6;
-      --shadow: 0 4px 12px rgba(0,0,0,0.06); --progress-bg: #e2e8f0; --tag-bg: #dbeafe; --tag-text: #1e40af;
-    }
-    [data-theme="dark"] {
-      --bg: #0b1120; --card-bg: #1e293b; --border: #334155; --text: #f8fafc; --text-light: #94a3b8;
-      --header-bg: #020617; --header-text: #f8fafc; --btn-bg: #3b82f6; --btn-text: #0f172a;
-      --input-bg: #334155; --success: #4ade80; --warning: #facc15; --danger: #f87171; --info: #60a5fa;
-      --shadow: 0 4px 16px rgba(0,0,0,0.4); --progress-bg: #475569; --tag-bg: #1e3a8a; --tag-text: #93c5fd;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, sans-serif;
-      background: var(--bg); color: var(--text); padding: 12px; line-height: 1.4; font-size: 14px;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    .header {
-      background: var(--header-bg); color: var(--header-text); padding: 16px; border-radius: 14px;
-      margin-bottom: 14px; text-align: center; position: relative; transition: background 0.3s ease;
-    }
-    .header h1 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
-    .header .meta { font-size: 0.8rem; opacity: 0.9; }
-    .theme-toggle {
-      position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.15); border: none;
-      color: var(--header-text); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
-      backdrop-filter: blur(4px); transition: background 0.2s;
-    }
-    .theme-toggle:hover { background: rgba(255,255,255,0.25); }
-    .filters {
-      background: var(--card-bg); padding: 14px; border-radius: 12px; margin-bottom: 14px;
-      display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end;
-      box-shadow: var(--shadow); transition: background 0.3s, box-shadow 0.3s;
-    }
-    .filters label { font-size: 0.75rem; color: var(--text-light); display: block; margin-bottom: 4px; }
-    .filters select {
-      width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px;
-      background: var(--input-bg); color: var(--text); transition: background 0.3s, border-color 0.3s;
-    }
-    .filters button {
-      padding: 10px 16px; background: var(--btn-bg); color: var(--btn-text); border: none;
-      border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500;
-      transition: opacity 0.2s, transform 0.1s; white-space: nowrap;
-    }
-    .filters button:hover { opacity: 0.9; }
-    .filters button:active { transform: scale(0.98); }
-    .summary-bar {
-      background: var(--card-bg); padding: 12px; border-radius: 12px; margin-bottom: 14px;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;
-      font-size: 0.8rem; box-shadow: var(--shadow); transition: background 0.3s, box-shadow 0.3s;
-    }
-    .summary-item .label { color: var(--text-light); display: block; margin-bottom: 4px; }
-    .summary-item .value { font-weight: 700; font-size: 1.05rem; transition: color 0.3s; }
-    .summary-item .value.neg { color: var(--danger); }
-    .summary-item .value.pos { color: var(--success); }
-    .params-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;
-    }
-    .param-card {
-      background: var(--card-bg); border-radius: 12px; padding: 14px; box-shadow: var(--shadow);
-      border-left: 4px solid var(--info); transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
-    }
-    .param-card:hover { transform: translateY(-3px); }
-    .param-card.ca { border-left-color: #3b82f6; } .param-card.sa { border-left-color: #8b5cf6; }
-    .param-card.fu { border-left-color: #06b6d4; } .param-card.con { border-left-color: #f59e0b; }
-    .param-card.sme { border-left-color: #16a34a; } .param-card.ph { border-left-color: #ec4899; }
-    .param-card.mdin { border-left-color: #6366f1; } .param-card.qris { border-left-color: #14b8a6; }
-    .param-card.sli { border-left-color: #f97316; } .param-card.cif { border-left-color: #84cc16; }
-    .param-card .title {
-      font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; padding-bottom: 8px;
-      border-bottom: 1px dashed var(--border); display: flex; align-items: center; gap: 6px;
-    }
-    .metric-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.85rem; }
-    .metric-row .label { color: var(--text-light); }
-    .metric-row .value { font-weight: 600; font-family: 'SF Mono', 'Courier New', monospace; }
-    .metric-row.gap .value.neg { color: var(--danger); font-weight: 700; }
-    .metric-row.gap .value.pos { color: var(--success); font-weight: 700; }
-    .achievement {
-      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); text-align: center;
-    }
-    .achievement .label { font-size: 0.8rem; color: var(--text-light); }
-    .achievement .value { font-size: 1.4rem; font-weight: 800; margin: 4px 0; transition: color 0.3s; }
-    .achievement .value.low { color: var(--danger); }
-    .achievement .value.mid { color: var(--warning); }
-    .achievement .value.high { color: var(--success); }
-    .progress-bar {
-      height: 6px; background: var(--progress-bg); border-radius: 3px;
-      overflow: hidden; margin-top: 6px; transition: background 0.3s;
-    }
-    .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease, background 0.3s; }
-    .tag {
-      display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;
-      margin-left: 6px; background: var(--tag-bg); color: var(--tag-text); transition: background 0.3s, color 0.3s;
-    }
-    .footer {
-      text-align: center; padding: 20px 10px; color: var(--text-light); font-size: 0.75rem;
-      margin-top: 20px; transition: color 0.3s;
-    }
-    @media (max-width: 600px) {
-      .filters { grid-template-columns: 1fr; }
-      .summary-bar { grid-template-columns: repeat(2, 1fr); }
-      .params-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="header">
-    <h1>🏦 Bank Muamalat</h1>
-    <div class="meta">📅 Per: 18 Mei 2026 | 📆 Hari Kerja: 16</div>
-    <button id="themeToggle" class="theme-toggle">🌙 Dark</button>
-  </div>
-
-  <div class="filters">
-    <div>
-      <label>📍 Co-Branch</label>
-      <select id="coBranchFilter">
-        <option value="ALL">Semua Co-Branch</option>
-        <option value="BANDA ACEH">BANDA ACEH</option>
-        <option value="BENGKULU">BENGKULU</option>
-        <option value="LAMPUNG">LAMPUNG</option>
-        <option value="MEDAN BALAIKOTA">MEDAN BALAIKOTA</option>
-        <option value="MEDAN BARU">MEDAN BARU</option>
-        <option value="PADANG">PADANG</option>
-        <option value="PALEMBANG">PALEMBANG</option>
-        <option value="PANGKAL PINANG">PANGKAL PINANG</option>
-        <option value="PEKANBARU">PEKANBARU</option>
-      </select>
-    </div>
-    <div>
-      <label>🏢 Branch</label>
-      <select id="branchFilter"><option value="ALL">Semua Branch</option></select>
-    </div>
-    <button onclick="resetDashboard()">🔄 Reset Filter</button>
-  </div>
-
-  <div class="summary-bar">
-    <div class="summary-item"><span class="label">Total Gap CA</span><span class="value" id="sumGapCA">0.0 M</span></div>
-    <div class="summary-item"><span class="label">Total Gap SA</span><span class="value" id="sumGapSA">0.0 M</span></div>
-    <div class="summary-item"><span class="label">Total Gap Funding</span><span class="value" id="sumGapFU">0.0 M</span></div>
-    <div class="summary-item"><span class="label">Avg Achievement</span><span class="value" id="avgAchieve">0.0%</span></div>
-  </div>
-
-  <div class="params-grid" id="paramsContainer"></div>
-
-  <div class="footer">
-    💡 Data source: Sheet NTbl | Update hanya di tabel sumber<br>
-    📱 Optimized for Mobile & Web | Theme: <span id="themeLabel">Light</span>
-  </div>
-
-<script>
-  // ================= DATA NTBL (UPDATE HANYA DI BAGIAN INI) =================
-  const ntData = [
-    {co:"BANDA ACEH",br:"BANDA ACEH",tp:"KCU D",ca_mtd:0.1,ca_ytd:1.5,ca_tgt:1.2,sa_mtd:-0.6,sa_ytd:-5.9,sa_tgt:4.6,fu_mtd:-0.7,fu_ytd:-9.0,fu_tgt:9.1,con_mtd:0.01,con_ytd:1.40,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:16,ph_ytd:136,ph_tgt:112,mdin_mtd:30,mdin_ytd:243,mdin_tgt:256,qris_mtd:3,qris_ytd:21,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:36,cif_ytd:264,cif_tgt:288},
-    {co:"BANDA ACEH",br:"KCP LHOKSEUMAWE",tp:"KCP D",ca_mtd:0.2,ca_ytd:-1.6,ca_tgt:1.2,sa_mtd:0.2,sa_ytd:-6.2,sa_tgt:4.6,fu_mtd:0.3,fu_ytd:-11.4,fu_tgt:9.1,con_mtd:0.36,con_ytd:5.4,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:23,ph_ytd:101,ph_tgt:112,mdin_mtd:24,mdin_ytd:357,mdin_tgt:256,qris_mtd:2,qris_ytd:18,qris_tgt:64,sli_mtd:126,sli_ytd:0,sli_tgt:112,cif_mtd:45,cif_ytd:440,cif_tgt:288},
-    {co:"BANDA ACEH",br:"LANGSA",tp:"KCU NC",ca_mtd:-0.0,ca_ytd:2.1,ca_tgt:1.2,sa_mtd:-0.0,sa_ytd:-1.0,sa_tgt:4.6,fu_mtd:0.7,fu_ytd:1.6,fu_tgt:9.1,con_mtd:0.36,con_ytd:1.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:15,ph_ytd:94,ph_tgt:112,mdin_mtd:15,mdin_ytd:304,mdin_tgt:256,qris_mtd:3,qris_ytd:24,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:34,cif_ytd:352,cif_tgt:288},
-    {co:"BENGKULU",br:"BENGKULU",tp:"KCU D",ca_mtd:-0.1,ca_ytd:8.2,ca_tgt:1.2,sa_mtd:-0.1,sa_ytd:-6.6,sa_tgt:4.6,fu_mtd:-1.5,fu_ytd:5.9,fu_tgt:9.1,con_mtd:0.30,con_ytd:12.4,con_tgt:3.0,sme_mtd:0,sme_ytd:2.6,sme_tgt:0,ph_mtd:21,ph_ytd:167,ph_tgt:112,mdin_mtd:21,mdin_ytd:192,mdin_tgt:256,qris_mtd:10,qris_ytd:34,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:36,cif_ytd:259,cif_tgt:288},
-    {co:"BENGKULU",br:"KCP CURUP",tp:"KCP D",ca_mtd:-1.7,ca_ytd:-1.9,ca_tgt:1.2,sa_mtd:-1.7,sa_ytd:-4.0,sa_tgt:4.6,fu_mtd:-1.4,fu_ytd:-6.1,fu_tgt:9.1,con_mtd:0.17,con_ytd:6.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:19,ph_ytd:116,ph_tgt:112,mdin_mtd:22,mdin_ytd:244,mdin_tgt:256,qris_mtd:13,qris_ytd:46,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:26,cif_ytd:328,cif_tgt:288},
-    {co:"BENGKULU",br:"KCP ARGA MAKMUR",tp:"KCP NC",ca_mtd:0.2,ca_ytd:-0.6,ca_tgt:1.2,sa_mtd:0.2,sa_ytd:1.9,sa_tgt:4.6,fu_mtd:1.8,fu_ytd:2.8,fu_tgt:9.1,con_mtd:0.15,con_ytd:1.8,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:3,ph_ytd:75,ph_tgt:112,mdin_mtd:12,mdin_ytd:132,mdin_tgt:256,qris_mtd:19,qris_ytd:48,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:11,cif_ytd:198,cif_tgt:288},
-    {co:"BENGKULU",br:"KCP MANNA BENGKULU",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-0.4,sa_tgt:4.6,fu_mtd:0.3,fu_ytd:-1.8,fu_tgt:9.1,con_mtd:0.08,con_ytd:0.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:6,ph_ytd:43,ph_tgt:112,mdin_mtd:5,mdin_ytd:63,mdin_tgt:256,qris_mtd:6,qris_ytd:13,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:13,cif_ytd:93,cif_tgt:288},
-    {co:"BENGKULU",br:"JAMBI",tp:"KCU D",ca_mtd:0.9,ca_ytd:2.0,ca_tgt:1.2,sa_mtd:0.9,sa_ytd:-3.7,sa_tgt:4.6,fu_mtd:0.6,fu_ytd:-2.0,fu_tgt:9.1,con_mtd:0.43,con_ytd:4.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:5,ph_ytd:86,ph_tgt:112,mdin_mtd:9,mdin_ytd:146,mdin_tgt:256,qris_mtd:7,qris_ytd:30,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:13,cif_ytd:148,cif_tgt:288},
-    {co:"BENGKULU",br:"KCP MUARA BUNGO",tp:"KCP NC",ca_mtd:0.0,ca_ytd:0.1,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-1.4,sa_tgt:4.6,fu_mtd:0.5,fu_ytd:-0.7,fu_tgt:9.1,con_mtd:0.17,con_ytd:3.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:24,ph_ytd:102,ph_tgt:112,mdin_mtd:39,mdin_ytd:169,mdin_tgt:256,qris_mtd:6,qris_ytd:30,qris_tgt:64,sli_mtd:32,sli_ytd:0,sli_tgt:112,cif_mtd:50,cif_ytd:178,cif_tgt:288},
-    {co:"LAMPUNG",br:"LAMPUNG",tp:"KCU C",ca_mtd:3.3,ca_ytd:41.7,ca_tgt:1.2,sa_mtd:3.3,sa_ytd:-5.7,sa_tgt:4.6,fu_mtd:1.8,fu_ytd:41.1,fu_tgt:9.1,con_mtd:0.31,con_ytd:5.2,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:32,ph_ytd:202,ph_tgt:112,mdin_mtd:42,mdin_ytd:302,mdin_tgt:256,qris_mtd:5,qris_ytd:17,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:43,cif_ytd:257,cif_tgt:288},
-    {co:"LAMPUNG",br:"KCP METRO LAMPUNG",tp:"KCP D",ca_mtd:0.7,ca_ytd:-4.4,ca_tgt:1.2,sa_mtd:0.7,sa_ytd:-5.1,sa_tgt:4.6,fu_mtd:0.4,fu_ytd:-16.4,fu_tgt:9.1,con_mtd:0.03,con_ytd:4.5,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:52,ph_ytd:255,ph_tgt:112,mdin_mtd:37,mdin_ytd:319,mdin_tgt:256,qris_mtd:2,qris_ytd:28,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:73,cif_ytd:450,cif_tgt:288},
-    {co:"LAMPUNG",br:"KCP ZA PAGAR ALAM LAMPUNG",tp:"KCP NC",ca_mtd:1.2,ca_ytd:2.8,ca_tgt:1.2,sa_mtd:1.2,sa_ytd:-2.5,sa_tgt:4.6,fu_mtd:-0.3,fu_ytd:0.5,fu_tgt:9.1,con_mtd:0.27,con_ytd:5.8,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:8,ph_ytd:42,ph_tgt:112,mdin_mtd:26,mdin_ytd:257,mdin_tgt:256,qris_mtd:4,qris_ytd:29,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:31,cif_ytd:253,cif_tgt:288},
-    {co:"LAMPUNG",br:"KCP KOTABUMI LAMPUNG",tp:"KCP NC",ca_mtd:-1.6,ca_ytd:-2.0,ca_tgt:1.2,sa_mtd:-1.6,sa_ytd:1.2,sa_tgt:4.6,fu_mtd:-0.8,fu_ytd:-15.8,fu_tgt:9.1,con_mtd:0.04,con_ytd:5.8,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:37,ph_ytd:162,ph_tgt:112,mdin_mtd:20,mdin_ytd:176,mdin_tgt:256,qris_mtd:1,qris_ytd:21,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:47,cif_ytd:224,cif_tgt:288},
-    {co:"LAMPUNG",br:"KCP BANDAR JAYA",tp:"KCP NC",ca_mtd:0.3,ca_ytd:0.9,ca_tgt:1.2,sa_mtd:0.3,sa_ytd:1.0,sa_tgt:4.6,fu_mtd:-0.4,fu_ytd:-8.3,fu_tgt:9.1,con_mtd:0.01,con_ytd:6.4,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:66,ph_ytd:295,ph_tgt:112,mdin_mtd:10,mdin_ytd:91,mdin_tgt:256,qris_mtd:1,qris_ytd:7,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:73,cif_ytd:349,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"MEDAN BALAIKOTA",tp:"KCU C",ca_mtd:-1.1,ca_ytd:0.1,ca_tgt:1.2,sa_mtd:-1.1,sa_ytd:-10.5,sa_tgt:4.6,fu_mtd:-2.9,fu_ytd:-1.7,fu_tgt:9.1,con_mtd:0.53,con_ytd:13.4,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:36,ph_ytd:224,ph_tgt:112,mdin_mtd:46,mdin_ytd:296,mdin_tgt:256,qris_mtd:13,qris_ytd:52,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:50,cif_ytd:276,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"KCP SERDANG",tp:"KCP NC",ca_mtd:-0.6,ca_ytd:-0.7,ca_tgt:1.2,sa_mtd:-0.6,sa_ytd:-1.8,sa_tgt:4.6,fu_mtd:0.6,fu_ytd:0.8,fu_tgt:9.1,con_mtd:0.15,con_ytd:3.6,con_tgt:3.0,sme_mtd:0,sme_ytd:6.5,sme_tgt:0,ph_mtd:6,ph_ytd:19,ph_tgt:112,mdin_mtd:13,mdin_ytd:137,mdin_tgt:256,qris_mtd:2,qris_ytd:21,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:11,cif_ytd:123,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"KCP SUKARAMAI",tp:"KCP D",ca_mtd:-0.9,ca_ytd:2.0,ca_tgt:1.2,sa_mtd:-0.9,sa_ytd:-4.9,sa_tgt:4.6,fu_mtd:-2.7,fu_ytd:-2.9,fu_tgt:9.1,con_mtd:0.07,con_ytd:1.9,con_tgt:3.0,sme_mtd:0,sme_ytd:7.1,sme_tgt:0,ph_mtd:2,ph_ytd:22,ph_tgt:112,mdin_mtd:12,mdin_ytd:108,mdin_tgt:256,qris_mtd:3,qris_ytd:16,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:14,cif_ytd:107,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"PADANG SIDEMPUAN",tp:"KCU NC",ca_mtd:-0.1,ca_ytd:1.1,ca_tgt:1.2,sa_mtd:-0.1,sa_ytd:-4.0,sa_tgt:4.6,fu_mtd:-1.1,fu_ytd:-1.7,fu_tgt:9.1,con_mtd:0.15,con_ytd:3.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:9,ph_ytd:84,ph_tgt:112,mdin_mtd:21,mdin_ytd:412,mdin_tgt:256,qris_mtd:11,qris_ytd:48,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:23,cif_ytd:374,cif_tgt:288},
-    {co:"MEDAN BALAIKOTA",br:"KCP PANYABUNGAN",tp:"KCP NC",ca_mtd:0.0,ca_ytd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-2.3,sa_tgt:4.6,fu_mtd:-1.1,fu_ytd:-2.8,fu_tgt:9.1,con_mtd:0.01,con_ytd:1.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:21,ph_ytd:129,ph_tgt:112,mdin_mtd:25,mdin_ytd:198,mdin_tgt:256,qris_mtd:2,qris_ytd:30,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:27,cif_ytd:201,cif_tgt:288},
-    {co:"MEDAN BARU",br:"MEDAN BARU",tp:"KCU D",ca_mtd:2.2,ca_ytd:-2.2,ca_tgt:1.2,sa_mtd:2.2,sa_ytd:-7.9,sa_tgt:4.6,fu_mtd:0.5,fu_ytd:-12.3,fu_tgt:9.1,con_mtd:0.35,con_ytd:8.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:14,ph_ytd:86,ph_tgt:112,mdin_mtd:63,mdin_ytd:584,mdin_tgt:256,qris_mtd:14,qris_ytd:44,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:62,cif_ytd:559,cif_tgt:288},
-    {co:"MEDAN BARU",br:"PEMATANG SIANTAR",tp:"KCU NC",ca_mtd:-0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:-0.0,sa_ytd:-0.3,sa_tgt:4.6,fu_mtd:-0.8,fu_ytd:-1.1,fu_tgt:9.1,con_mtd:0.10,con_ytd:2.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:2,ph_ytd:12,ph_tgt:112,mdin_mtd:9,mdin_ytd:85,mdin_tgt:256,qris_mtd:2,qris_ytd:14,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:15,cif_ytd:101,cif_tgt:288},
-    {co:"MEDAN BARU",br:"KCP KISARAN",tp:"KCP NC",ca_mtd:-0.6,ca_ytd:-1.9,ca_tgt:1.2,sa_mtd:-0.6,sa_ytd:2.9,sa_tgt:4.6,fu_mtd:-0.7,fu_ytd:-1.5,fu_tgt:9.1,con_mtd:2.11,con_ytd:4.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:4,ph_ytd:40,ph_tgt:112,mdin_mtd:28,mdin_ytd:128,mdin_tgt:256,qris_mtd:8,qris_ytd:25,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:29,cif_ytd:154,cif_tgt:288},
-    {co:"MEDAN BARU",br:"KCP BINJAI",tp:"KCP NC",ca_mtd:0.1,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:0.1,sa_ytd:-2.5,sa_tgt:4.6,fu_mtd:-2.7,fu_ytd:-4.6,fu_tgt:9.1,con_mtd:0.04,con_ytd:5.5,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:8,ph_ytd:43,ph_tgt:112,mdin_mtd:13,mdin_ytd:133,mdin_tgt:256,qris_mtd:1,qris_ytd:10,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:15,cif_ytd:145,cif_tgt:288},
-    {co:"MEDAN BARU",br:"KCP STABAT",tp:"KCP NC",ca_mtd:0.0,ca_ytd:0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-0.7,sa_tgt:4.6,fu_mtd:-1.7,fu_ytd:0.3,fu_tgt:9.1,con_mtd:0.28,con_ytd:4.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:11,ph_ytd:60,ph_tgt:112,mdin_mtd:12,mdin_ytd:192,mdin_tgt:256,qris_mtd:3,qris_ytd:11,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:22,cif_ytd:224,cif_tgt:288},
-    {co:"PADANG",br:"PADANG",tp:"KCU D",ca_mtd:0.9,ca_ytd:9.2,ca_tgt:1.2,sa_mtd:0.9,sa_ytd:-7.1,sa_tgt:4.6,fu_mtd:-3.0,fu_ytd:-3.1,fu_tgt:9.1,con_mtd:0.60,con_ytd:10.4,con_tgt:3.0,sme_mtd:0,sme_ytd:6.8,sme_tgt:0,ph_mtd:28,ph_ytd:176,ph_tgt:112,mdin_mtd:28,mdin_ytd:529,mdin_tgt:256,qris_mtd:1,qris_ytd:21,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:23,cif_ytd:457,cif_tgt:288},
-    {co:"PADANG",br:"KCP BUKITTINGGI",tp:"KCP D",ca_mtd:-0.1,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:-0.1,sa_ytd:-4.1,sa_tgt:4.6,fu_mtd:-1.1,fu_ytd:-7.5,fu_tgt:9.1,con_mtd:0.33,con_ytd:2.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:2,ph_ytd:17,ph_tgt:112,mdin_mtd:19,mdin_ytd:252,mdin_tgt:256,qris_mtd:1,qris_ytd:14,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:19,cif_ytd:155,cif_tgt:288},
-    {co:"PADANG",br:"KCP PAYAKUMBUH",tp:"KCP D",ca_mtd:0.2,ca_ytd:-3.7,ca_tgt:1.2,sa_mtd:0.2,sa_ytd:-9.1,sa_tgt:4.6,fu_mtd:0.5,fu_ytd:-39.9,fu_tgt:9.1,con_mtd:0.17,con_ytd:7.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:3,ph_ytd:22,ph_tgt:112,mdin_mtd:10,mdin_ytd:90,mdin_tgt:256,qris_mtd:5,qris_ytd:14,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:15,cif_ytd:74,cif_tgt:288},
-    {co:"PADANG",br:"KCP SOLOK",tp:"KCP NC",ca_mtd:-0.1,ca_ytd:-0.3,ca_tgt:1.2,sa_mtd:-0.1,sa_ytd:-2.5,sa_tgt:4.6,fu_mtd:-1.2,fu_ytd:-4.3,fu_tgt:9.1,con_mtd:0.10,con_ytd:2.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:2,ph_ytd:30,ph_tgt:112,mdin_mtd:12,mdin_ytd:157,mdin_tgt:256,qris_mtd:1,qris_ytd:7,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:9,cif_ytd:127,cif_tgt:288},
-    {co:"PALEMBANG",br:"PALEMBANG",tp:"KCU D",ca_mtd:-4.1,ca_ytd:-8.2,ca_tgt:1.2,sa_mtd:-4.1,sa_ytd:2.4,sa_tgt:4.6,fu_mtd:-2.6,fu_ytd:-30.3,fu_tgt:9.1,con_mtd:0.31,con_ytd:8.0,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:35,ph_ytd:117,ph_tgt:112,mdin_mtd:36,mdin_ytd:288,mdin_tgt:256,qris_mtd:4,qris_ytd:23,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:37,cif_ytd:215,cif_tgt:288},
-    {co:"PALEMBANG",br:"KCP PLAJU",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-1.6,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-0.3,sa_tgt:4.6,fu_mtd:-0.2,fu_ytd:-0.1,fu_tgt:9.1,con_mtd:0.07,con_ytd:3.7,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:18,ph_ytd:68,ph_tgt:112,mdin_mtd:14,mdin_ytd:172,mdin_tgt:256,qris_mtd:10,qris_ytd:27,qris_tgt:64,sli_mtd:54,sli_ytd:0,sli_tgt:112,cif_mtd:46,cif_ytd:172,cif_tgt:288},
-    {co:"PALEMBANG",br:"KCP BATURAJA",tp:"KCP NC",ca_mtd:0.2,ca_ytd:-1.7,ca_tgt:1.2,sa_mtd:0.2,sa_ytd:-1.7,sa_tgt:4.6,fu_mtd:-0.1,fu_ytd:-3.5,fu_tgt:9.1,con_mtd:0.43,con_ytd:3.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:7,ph_ytd:78,ph_tgt:112,mdin_mtd:11,mdin_ytd:71,mdin_tgt:256,qris_mtd:1,qris_ytd:9,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:17,cif_ytd:109,cif_tgt:288},
-    {co:"PALEMBANG",br:"KCP ENIM",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-0.3,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-3.7,sa_tgt:4.6,fu_mtd:-0.2,fu_ytd:-32.6,fu_tgt:9.1,con_mtd:0.21,con_ytd:1.3,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:9,ph_ytd:52,ph_tgt:112,mdin_mtd:8,mdin_ytd:81,mdin_tgt:256,qris_mtd:2,qris_ytd:6,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:12,cif_ytd:89,cif_tgt:288},
-    {co:"PANGKAL PINANG",br:"PANGKAL PINANG",tp:"KCU C",ca_mtd:0.1,ca_ytd:-6.1,ca_tgt:1.2,sa_mtd:0.1,sa_ytd:-4.9,sa_tgt:4.6,fu_mtd:3.2,fu_ytd:-3.1,fu_tgt:9.1,con_mtd:0.15,con_ytd:6.5,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:19,ph_ytd:73,ph_tgt:112,mdin_mtd:35,mdin_ytd:235,mdin_tgt:256,qris_mtd:2,qris_ytd:22,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:32,cif_ytd:199,cif_tgt:288},
-    {co:"PANGKAL PINANG",br:"KCP TANJUNG PANDAN",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-4.5,sa_tgt:4.6,fu_mtd:-0.1,fu_ytd:-4.9,fu_tgt:9.1,con_mtd:0.29,con_ytd:3.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:4,ph_ytd:17,ph_tgt:112,mdin_mtd:13,mdin_ytd:94,mdin_tgt:256,qris_mtd:5,qris_ytd:13,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:10,cif_ytd:73,cif_tgt:288},
-    {co:"PANGKAL PINANG",br:"KCP SUNGAILIAT",tp:"KCP D",ca_mtd:-0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:-0.0,sa_ytd:-2.8,sa_tgt:4.6,fu_mtd:-0.3,fu_ytd:-4.3,fu_tgt:9.1,con_mtd:1.03,con_ytd:5.1,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:24,ph_ytd:89,ph_tgt:112,mdin_mtd:30,mdin_ytd:152,mdin_tgt:256,qris_mtd:7,qris_ytd:31,qris_tgt:64,sli_mtd:20,sli_ytd:0,sli_tgt:112,cif_mtd:28,cif_ytd:178,cif_tgt:288},
-    {co:"PANGKAL PINANG",br:"KCP KOBA",tp:"KCP NC",ca_mtd:0.0,ca_ytd:-0.0,ca_tgt:1.2,sa_mtd:0.0,sa_ytd:-1.3,sa_tgt:4.6,fu_mtd:-0.2,fu_ytd:-1.7,fu_tgt:9.1,con_mtd:0.06,con_ytd:0.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:14,ph_ytd:79,ph_tgt:112,mdin_mtd:21,mdin_ytd:143,mdin_tgt:256,qris_mtd:4,qris_ytd:15,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:19,cif_ytd:121,cif_tgt:288},
-    {co:"PEKANBARU",br:"PEKANBARU",tp:"KCU C",ca_mtd:-0.3,ca_ytd:6.3,ca_tgt:1.2,sa_mtd:-0.3,sa_ytd:-10.0,sa_tgt:4.6,fu_mtd:-1.9,fu_ytd:-37.5,fu_tgt:9.1,con_mtd:0.65,con_ytd:8.3,con_tgt:3.0,sme_mtd:0,sme_ytd:5.7,sme_tgt:0,ph_mtd:23,ph_ytd:153,ph_tgt:112,mdin_mtd:35,mdin_ytd:325,mdin_tgt:256,qris_mtd:2,qris_ytd:20,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:34,cif_ytd:274,cif_tgt:288},
-    {co:"PEKANBARU",br:"KCP KAMPAR",tp:"KCP NC",ca_mtd:0.4,ca_ytd:-2.4,ca_tgt:1.2,sa_mtd:0.4,sa_ytd:-0.5,sa_tgt:4.6,fu_mtd:-0.2,fu_ytd:-3.4,fu_tgt:9.1,con_mtd:0.19,con_ytd:7.9,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:42,ph_ytd:138,ph_tgt:112,mdin_mtd:103,mdin_ytd:263,mdin_tgt:256,qris_mtd:3,qris_ytd:20,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:110,cif_ytd:299,cif_tgt:288},
-    {co:"PEKANBARU",br:"BATAM",tp:"KCU D",ca_mtd:-0.4,ca_ytd:-3.0,ca_tgt:1.2,sa_mtd:-0.4,sa_ytd:-6.1,sa_tgt:4.6,fu_mtd:-1.3,fu_ytd:-9.3,fu_tgt:9.1,con_mtd:0.05,con_ytd:3.5,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:13,ph_ytd:70,ph_tgt:112,mdin_mtd:18,mdin_ytd:181,mdin_tgt:256,qris_mtd:8,qris_ytd:24,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:13,cif_ytd:107,cif_tgt:288},
-    {co:"PEKANBARU",br:"TANJUNG PINANG",tp:"KCU D",ca_mtd:-0.0,ca_ytd:1.7,ca_tgt:1.2,sa_mtd:-0.0,sa_ytd:-1.1,sa_tgt:4.6,fu_mtd:-0.4,fu_ytd:-2.6,fu_tgt:9.1,con_mtd:0.17,con_ytd:6.8,con_tgt:3.0,sme_mtd:0,sme_ytd:0,sme_tgt:0,ph_mtd:3,ph_ytd:30,ph_tgt:112,mdin_mtd:7,mdin_ytd:115,mdin_tgt:256,qris_mtd:6,qris_ytd:13,qris_tgt:64,sli_mtd:0,sli_ytd:0,sli_tgt:112,cif_mtd:7,cif_ytd:93,cif_tgt:288}
-  ];
-  // ================= AKHIR DATA NTBL =================
-
-  const params = [
-    {id:'ca',name:'🏦 Current Account',unit:'M',color:'ca',metrics:[{k:'ca_mtd',l:'Growth MTD'},{k:'ca_tgt',l:'Target MTD'},{k:'gapCA',l:'GAP Growth',isGap:true},{k:'achCA',l:'Achievement',isPct:true}]},
-    {id:'sa',name:'💰 Saving Account',unit:'M',color:'sa',metrics:[{k:'sa_mtd',l:'Growth MTD'},{k:'sa_tgt',l:'Target MTD'},{k:'gapSA',l:'GAP Growth',isGap:true},{k:'achSA',l:'Achievement',isPct:true}]},
-    {id:'fu',name:'📈 Funding',unit:'M',color:'fu',metrics:[{k:'fu_mtd',l:'Growth MTD'},{k:'fu_tgt',l:'Target MTD'},{k:'gapFU',l:'GAP Growth',isGap:true},{k:'achFU',l:'Achievement',isPct:true}]},
-    {id:'con',name:'🛒 Booking Consumer',unit:'M',color:'con',metrics:[{k:'con_mtd',l:'Booking MTD'},{k:'con_tgt',l:'Target MTD'},{k:'gapCon',l:'GAP Booking',isGap:true},{k:'achCon',l:'Achievement',isPct:true}]},
-    {id:'sme',name:'🏢 SME - Region',unit:'M',color:'sme',metrics:[{k:'sme_mtd',l:'Booking MTD'},{k:'sme_tgt',l:'Target MTD'},{k:'gapSME',l:'GAP Booking',isGap:true},{k:'achSME',l:'Achievement',isPct:true}]},
-    {id:'ph',name:'🕋 Porsi Haji',unit:'',color:'ph',metrics:[{k:'ph_mtd',l:'Booking MTD'},{k:'ph_tgt',l:'Target MTD'},{k:'gapPH',l:'GAP Booking',isGap:true},{k:'achPH',l:'Achievement',isPct:true}]},
-    {id:'mdin',name:'📱 MDIN',unit:'',color:'mdin',metrics:[{k:'mdin_mtd',l:'Akuisisi MTD'},{k:'mdin_tgt',l:'Target MTD'},{k:'gapMDIN',l:'GAP Akuisisi',isGap:true},{k:'achMDIN',l:'Achievement',isPct:true}]},
-    {id:'qris',name:'💳 QRIS',unit:'',color:'qris',metrics:[{k:'qris_mtd',l:'Akuisisi MTD'},{k:'qris_tgt',l:'Target MTD'},{k:'gapQRIS',l:'GAP Akuisisi',isGap:true},{k:'achQRIS',l:'Achievement',isPct:true}]},
-    {id:'sli',name:'☂️ Sunlife (SLI)',unit:'',color:'sli',metrics:[{k:'sli_mtd',l:'Booking MTD'},{k:'sli_tgt',l:'Target MTD'},{k:'gapSLI',l:'GAP Booking',isGap:true},{k:'achSLI',l:'Achievement',isPct:true}]},
-    {id:'cif',name:'👥 New CIF',unit:'',color:'cif',metrics:[{k:'cif_mtd',l:'Akuisisi MTD'},{k:'cif_tgt',l:'Target MTD'},{k:'gapCIF',l:'GAP Akuisisi',isGap:true},{k:'achCIF',l:'Achievement',isPct:true}]}
-  ];
-
-  const coBranchSelect = document.getElementById('coBranchFilter');
-  const branchSelect = document.getElementById('branchFilter');
-  const themeToggle = document.getElementById('themeToggle');
-  const themeLabel = document.getElementById('themeLabel');
-  const html = document.documentElement;
-
-  // 🌗 THEME LOGIC
-  function setTheme(theme) {
-    html.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    themeToggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
-    themeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
-  }
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  setTheme(savedTheme);
-  themeToggle.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  });
-
-  // 🔄 CASCADING DROPDOWN
-  coBranchSelect.addEventListener('change', () => {
-    updateBranchOptions(coBranchSelect.value);
-    renderDashboard();
-  });
-  branchSelect.addEventListener('change', renderDashboard);
-
-  function updateBranchOptions(selectedCo) {
-    branchSelect.innerHTML = '<option value="ALL">Semua Branch</option>';
-    const filtered = selectedCo === 'ALL' ? ntData : ntData.filter(d => d.co === selectedCo);
-    const uniqueBranches = [...new Set(filtered.map(d => d.br))].sort();
+    const uniqueBranches = [...new Set(filtered.map(d => d.br.trim()))].sort();
     uniqueBranches.forEach(br => {
       const opt = document.createElement('option');
       opt.value = br; opt.textContent = br;
@@ -683,14 +160,15 @@ Berikut adalah file HTML lengkap yang sudah diperbarui. Tombol **Refresh** telah
     branchSelect.value = 'ALL';
   }
 
-  // 🔄 RESET FUNCTION
+  coBranchSelect.addEventListener('change', () => { updateBranchOptions(coBranchSelect.value); renderDashboard(); });
+  branchSelect.addEventListener('change', renderDashboard);
+
   function resetDashboard() {
     coBranchSelect.value = 'ALL';
     updateBranchOptions('ALL');
     renderDashboard();
   }
 
-  // 📊 CALCULATION & RENDER
   function calcMetrics(data) {
     return data.map(d => ({
       ...d,
@@ -698,11 +176,11 @@ Berikut adalah file HTML lengkap yang sudah diperbarui. Tombol **Refresh** telah
       gapCon: d.con_mtd - d.con_tgt, gapSME: d.sme_mtd - d.sme_tgt, gapPH: d.ph_mtd - d.ph_tgt,
       gapMDIN: d.mdin_mtd - d.mdin_tgt, gapQRIS: d.qris_mtd - d.qris_tgt, gapSLI: d.sli_mtd - d.sli_tgt,
       gapCIF: d.cif_mtd - d.cif_tgt,
-      achCA: d.ca_tgt>0 ? (d.ca_mtd/d.ca_tgt*100) : 0, achSA: d.sa_tgt>0 ? (d.sa_mtd/d.sa_tgt*100) : 0,
-      achFU: d.fu_tgt>0 ? (d.fu_mtd/d.fu_tgt*100) : 0, achCon: d.con_tgt>0 ? (d.con_mtd/d.con_tgt*100) : 0,
-      achSME: d.sme_tgt>0 ? (d.sme_mtd/d.sme_tgt*100) : 0, achPH: d.ph_tgt>0 ? (d.ph_mtd/d.ph_tgt*100) : 0,
-      achMDIN: d.mdin_tgt>0 ? (d.mdin_mtd/d.mdin_tgt*100) : 0, achQRIS: d.qris_tgt>0 ? (d.qris_mtd/d.qris_tgt*100) : 0,
-      achSLI: d.sli_tgt>0 ? (d.sli_mtd/d.sli_tgt*100) : 0, achCIF: d.cif_tgt>0 ? (d.cif_mtd/d.cif_tgt*100) : 0
+      achCA: d.ca_tgt>0?(d.ca_mtd/d.ca_tgt*100):0, achSA: d.sa_tgt>0?(d.sa_mtd/d.sa_tgt*100):0,
+      achFU: d.fu_tgt>0?(d.fu_mtd/d.fu_tgt*100):0, achCon: d.con_tgt>0?(d.con_mtd/d.con_tgt*100):0,
+      achSME: d.sme_tgt>0?(d.sme_mtd/d.sme_tgt*100):0, achPH: d.ph_tgt>0?(d.ph_mtd/d.ph_tgt*100):0,
+      achMDIN: d.mdin_tgt>0?(d.mdin_mtd/d.mdin_tgt*100):0, achQRIS: d.qris_tgt>0?(d.qris_mtd/d.qris_tgt*100):0,
+      achSLI: d.sli_tgt>0?(d.sli_mtd/d.sli_tgt*100):0, achCIF: d.cif_tgt>0?(d.cif_mtd/d.cif_tgt*100):0
     }));
   }
 
@@ -710,11 +188,9 @@ Berikut adalah file HTML lengkap yang sudah diperbarui. Tombol **Refresh** telah
     let filtered = data;
     if(coBr!=='ALL') filtered = filtered.filter(d=>d.co===coBr);
     if(br!=='ALL') filtered = filtered.filter(d=>d.br===br);
-    
     const sum = (key) => filtered.reduce((a,b)=>a+(b[key]||0),0);
     const count = filtered.length;
     const avg = (key) => count > 0 ? sum(key)/count : 0;
-
     return {
       ca_mtd:sum('ca_mtd'), ca_tgt:sum('ca_tgt'), gapCA:sum('gapCA'), achCA:avg('achCA'),
       sa_mtd:sum('sa_mtd'), sa_tgt:sum('sa_tgt'), gapSA:sum('gapSA'), achSA:avg('achSA'),
@@ -734,17 +210,12 @@ Berikut adalah file HTML lengkap yang sudah diperbarui. Tombol **Refresh** telah
     return val>=0 ? val.toLocaleString('id-ID') : '(' + Math.abs(val).toLocaleString('id-ID') + ')';
   }
 
-  function getAchieveClass(pct) {
-    if(pct >= 100) return 'high';
-    if(pct >= 50) return 'mid';
-    return 'low';
-  }
+  function getAchieveClass(pct) { if(pct >= 100) return 'high'; if(pct >= 50) return 'mid'; return 'low'; }
 
   function renderDashboard() {
     const coBr = coBranchSelect.value;
     const br = branchSelect.value;
-    const calculatedData = calcMetrics(ntData);
-    const total = aggregate(calculatedData, coBr, br);
+    const total = aggregate(calcMetrics(ntData), coBr, br);
     const container = document.getElementById('paramsContainer');
     container.innerHTML = '';
     
@@ -752,7 +223,6 @@ Berikut adalah file HTML lengkap yang sudah diperbarui. Tombol **Refresh** telah
       const m0 = total[p.metrics[0].k], m1 = total[p.metrics[1].k], gap = total[p.metrics[2].k], ach = total[p.metrics[3].k];
       const gapClass = gap >= 0 ? 'pos' : 'neg';
       const achClass = getAchieveClass(ach);
-      
       const card = document.createElement('div');
       card.className = `param-card ${p.color}`;
       card.innerHTML = `
@@ -760,27 +230,17 @@ Berikut adalah file HTML lengkap yang sudah diperbarui. Tombol **Refresh** telah
         <div class="metric-row"><span class="label">${p.metrics[0].l}</span><span class="value">${formatNum(m0,p.unit)}</span></div>
         <div class="metric-row"><span class="label">${p.metrics[1].l}</span><span class="value">${formatNum(m1,p.unit)}</span></div>
         <div class="metric-row gap"><span class="label">${p.metrics[2].l}</span><span class="value ${gapClass}">${formatNum(gap,p.unit)}</span></div>
-        <div class="achievement">
-          <span class="label">${p.metrics[3].l}</span>
-          <div class="value ${achClass}">${ach.toFixed(1)}%</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,ach)}%; background:${ach>=100?'var(--success)':ach>=50?'var(--warning)':'var(--danger)'}"></div></div>
-        </div>
-      `;
+        <div class="achievement"><span class="label">${p.metrics[3].l}</span><div class="value ${achClass}">${ach.toFixed(1)}%</div><div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,ach)}%; background:${ach>=100?'var(--success)':ach>=50?'var(--warning)':'var(--danger)'}"></div></div></div>`;
       container.appendChild(card);
     });
     
-    document.getElementById('sumGapCA').textContent = formatNum(total.gapCA,'M');
-    document.getElementById('sumGapCA').className = `summary-item value ${total.gapCA >= 0 ? 'pos' : 'neg'}`;
-    document.getElementById('sumGapSA').textContent = formatNum(total.gapSA,'M');
-    document.getElementById('sumGapSA').className = `summary-item value ${total.gapSA >= 0 ? 'pos' : 'neg'}`;
-    document.getElementById('sumGapFU').textContent = formatNum(total.gapFU,'M');
-    document.getElementById('sumGapFU').className = `summary-item value ${total.gapFU >= 0 ? 'pos' : 'neg'}`;
-    
-    const avgAch = (total.achCA+total.achSA+total.achFU+total.achCon+total.achSME+total.achPH+total.achMDIN+total.achQRIS+total.achSLI+total.achCIF)/10;
-    document.getElementById('avgAchieve').textContent = avgAch.toFixed(1) + '%';
+    ['CA','SA','FU'].forEach(k => {
+      document.getElementById('sumGap'+k).textContent = formatNum(total['gap'+k],'M');
+      document.getElementById('sumGap'+k).className = `summary-item value ${total['gap'+k] >= 0 ? 'pos' : 'neg'}`;
+    });
+    document.getElementById('avgAchieve').textContent = ([total.achCA,total.achSA,total.achFU,total.achCon,total.achSME,total.achPH,total.achMDIN,total.achQRIS,total.achSLI,total.achCIF].reduce((a,b)=>a+b,0)/10).toFixed(1) + '%';
   }
 
-  // Init
   updateBranchOptions('ALL');
   renderDashboard();
 </script>
