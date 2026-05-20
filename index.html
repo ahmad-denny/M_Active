@@ -145,32 +145,17 @@
     const brVal = branchSelect.value;
     const branchNameText = document.getElementById('branchNameText');
 
-    if (!el) return; // Safety check jika elemen belum ada di DOM
-    
-        if (brVal !== 'ALL') {
-          // Jika Branch spesifik dipilih
-          branchNameText.textContent = `Branch ${brVal}`;
-        } else if (coVal !== 'ALL') {
-          // Jika hanya Co-Branch yang dipilih
-          branchNameText.textContent = `Co-Branch ${coVal}`;
-        } else {
-          // Jika semua filter di-reset
-          branchNameText.textContent = 'Semua Branch';
-        }
+    if (!branchNameText) return;
+  
+    if (brVal !== 'ALL') {
+      branchNameText.textContent = `Branch ${brVal}`;
+    } else if (coVal !== 'ALL') {
+      branchNameText.textContent = `Co-Branch ${coVal}`;
+    } else {
+      branchNameText.textContent = 'Semua Branch';
+    }
   }
 
-  // Update event listener yang sudah ada:
-  coBranchSelect.addEventListener('change', () => { 
-    updateBranchOptions(coBranchSelect.value); 
-    updateBranchDisplay();
-    renderDashboard(); 
-  });
-  
-  branchSelect.addEventListener('change', () => {
-    updateBranchDisplay();
-    renderDashboard();
-  });
-  
   function resetDashboard() {
     coBranchSelect.value = 'ALL';
     updateBranchOptions('ALL');
@@ -191,13 +176,22 @@
     branchSelect.value = 'ALL';
   }
 
-  coBranchSelect.addEventListener('change', () => { updateBranchOptions(coBranchSelect.value); renderDashboard(); });
-  branchSelect.addEventListener('change', renderDashboard);
+  coBranchSelect.addEventListener('change', () => { 
+  updateBranchOptions(coBranchSelect.value); 
+  updateBranchDisplay();  // ← Update teks cabang
+  renderDashboard(); 
+  });
+
+  branchSelect.addEventListener('change', () => {
+  updateBranchDisplay();  // ← Update teks cabang
+  renderDashboard();
+  });
 
   function resetDashboard() {
-    coBranchSelect.value = 'ALL';
-    updateBranchOptions('ALL');
-    renderDashboard();
+  coBranchSelect.value = 'ALL';
+  updateBranchOptions('ALL');  // Ini otomatis set branchSelect.value = 'ALL'
+  updateBranchDisplay();       // ← Paksa update teks ke 'Semua Branch'
+  renderDashboard();
   }
 
   // 📊 CALCULATION & RENDER
