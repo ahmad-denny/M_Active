@@ -1,152 +1,163 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Leading Indicator - Bank Muamalat</title>
   <style>
     :root {
-      --primary: #0f172a;
-      --secondary: #1e40af;
       --bg: #f1f5f9;
       --card-bg: #ffffff;
       --border: #e2e8f0;
-      --text: #1e293b;
+      --text: #0f172a;
       --text-light: #64748b;
+      --header-bg: #0f172a;
+      --header-text: #ffffff;
+      --btn-bg: #1e40af;
+      --btn-text: #ffffff;
+      --input-bg: #ffffff;
       --success: #16a34a;
       --warning: #f59e0b;
       --danger: #dc2626;
       --info: #3b82f6;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+      --progress-bg: #e2e8f0;
+      --tag-bg: #dbeafe;
+      --tag-text: #1e40af;
     }
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-light: #94a3b8;
+      --header-bg: #020617;
+      --header-text: #f8fafc;
+      --btn-bg: #3b82f6;
+      --btn-text: #0f172a;
+      --input-bg: #334155;
+      --success: #4ade80;
+      --warning: #facc15;
+      --danger: #f87171;
+      --info: #60a5fa;
+      --shadow: 0 4px 16px rgba(0,0,0,0.4);
+      --progress-bg: #475569;
+      --tag-bg: #1e3a8a;
+      --tag-text: #93c5fd;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding: 8px;
+      padding: 12px;
       line-height: 1.4;
       font-size: 14px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
+
     .header {
-      background: var(--primary);
-      color: white;
-      padding: 12px 16px;
-      border-radius: 12px;
-      margin-bottom: 12px;
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 14px;
       text-align: center;
+      position: relative;
+      transition: background 0.3s ease;
     }
-    .header h1 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-    .header .subtitle { font-size: 0.85rem; opacity: 0.9; }
-    .header .date { font-size: 0.8rem; opacity: 0.8; margin-top: 4px; }
+    .header h1 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+    .header .meta { font-size: 0.8rem; opacity: 0.9; }
     
+    .theme-toggle {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(255,255,255,0.15); border: none; color: var(--header-text);
+      padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+      backdrop-filter: blur(4px); transition: background 0.2s;
+    }
+    .theme-toggle:hover { background: rgba(255,255,255,0.25); }
+
     .filters {
-      background: var(--card-bg);
-      padding: 12px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 8px;
-      align-items: center;
+      background: var(--card-bg); padding: 14px; border-radius: 12px;
+      margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr auto;
+      gap: 10px; align-items: end; box-shadow: var(--shadow); transition: background 0.3s, box-shadow 0.3s;
     }
+    .filters label { font-size: 0.75rem; color: var(--text-light); display: block; margin-bottom: 4px; }
     .filters select {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 13px;
-      background: #fff;
+      width: 100%; padding: 10px; border: 1px solid var(--border);
+      border-radius: 8px; font-size: 13px; background: var(--input-bg);
+      color: var(--text); transition: background 0.3s, border-color 0.3s;
     }
-    .filter-label { font-size: 11px; color: var(--text-light); display: block; margin-bottom: 2px; }
-    
+    .filters button {
+      padding: 10px 16px; background: var(--btn-bg); color: var(--btn-text);
+      border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .filters button:hover { opacity: 0.9; }
+    .filters button:active { transform: scale(0.98); }
+
     .summary-bar {
-      background: var(--card-bg);
-      padding: 10px 12px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      text-align: center;
-      font-size: 0.8rem;
+      background: var(--card-bg); padding: 12px; border-radius: 12px;
+      margin-bottom: 14px; display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; text-align: center; font-size: 0.8rem; box-shadow: var(--shadow);
+      transition: background 0.3s, box-shadow 0.3s;
     }
-    .summary-item .label { color: var(--text-light); display: block; }
-    .summary-item .value { font-weight: 700; font-size: 1rem; }
+    .summary-item .label { color: var(--text-light); display: block; margin-bottom: 4px; }
+    .summary-item .value { font-weight: 700; font-size: 1.05rem; transition: color 0.3s; }
     .summary-item .value.neg { color: var(--danger); }
     .summary-item .value.pos { color: var(--success); }
-    
+
     .params-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 10px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;
     }
-    
     .param-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      border-left: 4px solid var(--info);
+      background: var(--card-bg); border-radius: 12px; padding: 14px;
+      box-shadow: var(--shadow); border-left: 4px solid var(--info);
+      transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
     }
-    .param-card.ca { border-left-color: #3b82f6; }
-    .param-card.sa { border-left-color: #8b5cf6; }
-    .param-card.fu { border-left-color: #06b6d4; }
-    .param-card.con { border-left-color: #f59e0b; }
-    .param-card.sme { border-left-color: #16a34a; }
-    .param-card.ph { border-left-color: #ec4899; }
-    .param-card.mdin { border-left-color: #6366f1; }
-    .param-card.qris { border-left-color: #14b8a6; }
-    .param-card.sli { border-left-color: #f97316; }
-    .param-card.cif { border-left-color: #84cc16; }
-    
+    .param-card:hover { transform: translateY(-3px); }
+    .param-card.ca { border-left-color: #3b82f6; } .param-card.sa { border-left-color: #8b5cf6; }
+    .param-card.fu { border-left-color: #06b6d4; } .param-card.con { border-left-color: #f59e0b; }
+    .param-card.sme { border-left-color: #16a34a; } .param-card.ph { border-left-color: #ec4899; }
+    .param-card.mdin { border-left-color: #6366f1; } .param-card.qris { border-left-color: #14b8a6; }
+    .param-card.sli { border-left-color: #f97316; } .param-card.cif { border-left-color: #84cc16; }
+
     .param-card .title {
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
-      border-bottom: 1px dashed var(--border);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border); display: flex; align-items: center; gap: 6px;
     }
-    
-    .metric-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      font-size: 0.85rem;
-    }
+    .metric-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.85rem; }
     .metric-row .label { color: var(--text-light); }
-    .metric-row .value { font-weight: 600; font-family: monospace; }
+    .metric-row .value { font-weight: 600; font-family: 'SF Mono', 'Courier New', monospace; }
     .metric-row.gap .value.neg { color: var(--danger); font-weight: 700; }
     .metric-row.gap .value.pos { color: var(--success); font-weight: 700; }
-    
+
     .achievement {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
-      text-align: center;
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); text-align: center;
     }
     .achievement .label { font-size: 0.8rem; color: var(--text-light); }
-    .achievement .value { font-size: 1.3rem; font-weight: 800; margin: 4px 0; }
+    .achievement .value { font-size: 1.4rem; font-weight: 800; margin: 4px 0; transition: color 0.3s; }
     .achievement .value.low { color: var(--danger); }
     .achievement .value.mid { color: var(--warning); }
     .achievement .value.high { color: var(--success); }
-    
+
     .progress-bar {
-      height: 6px;
-      background: #e2e8f0;
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 4px;
+      height: 6px; background: var(--progress-bg); border-radius: 3px;
+      overflow: hidden; margin-top: 6px; transition: background 0.3s;
     }
-    .progress-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
-    
-    .footer { text-align: center; padding: 16px; color: var(--text-light); font-size: 0.75rem; }
-    .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; margin-left: 6px; }
-    .tag.mtd { background: #dbeafe; color: #1e40af; }
-    .tag.ytd { background: #fef3c7; color: #92400e; }
-    
+    .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease, background 0.3s; }
+
+    .tag {
+      display: inline-block; padding: 2px 8px; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 600; margin-left: 6px;
+      background: var(--tag-bg); color: var(--tag-text); transition: background 0.3s, color 0.3s;
+    }
+    .footer {
+      text-align: center; padding: 20px 10px; color: var(--text-light);
+      font-size: 0.75rem; margin-top: 20px; transition: color 0.3s;
+    }
+
     @media (max-width: 600px) {
       .filters { grid-template-columns: 1fr; }
       .summary-bar { grid-template-columns: repeat(2, 1fr); }
@@ -158,13 +169,13 @@
 
   <div class="header">
     <h1>🏦 Bank Muamalat</h1>
-    <div class="subtitle">Leading Indicator Performance</div>
-    <div class="date">📅 Per: 18 Mei 2026 | 📆 Hari Kerja: 16</div>
+    <div class="meta">📅 Per: 18 Mei 2026 | 📆 Hari Kerja: 16</div>
+    <button id="themeToggle" class="theme-toggle">🌙 Dark</button>
   </div>
 
   <div class="filters">
     <div>
-      <span class="filter-label">📍 Co-Branch</span>
+      <label>📍 Co-Branch</label>
       <select id="coBranchFilter">
         <option value="ALL">Semua Co-Branch</option>
         <option value="BANDA ACEH">BANDA ACEH</option>
@@ -179,26 +190,24 @@
       </select>
     </div>
     <div>
-      <span class="filter-label">🏢 Branch</span>
-      <select id="branchFilter">
-        <option value="ALL">Semua Branch</option>
-      </select>
+      <label>🏢 Branch</label>
+      <select id="branchFilter"><option value="ALL">Semua Branch</option></select>
     </div>
-    <button onclick="exportReport()" style="padding:10px 16px; background:var(--secondary); color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; margin-top:18px;">📥 Export</button>
+    <button onclick="renderDashboard()">🔄 Refresh</button>
   </div>
-<!--
+
   <div class="summary-bar">
-    <div class="summary-item"><span class="label">Total Gap CA</span><span class="value neg" id="sumGapCA">0.0 M</span></div>
-    <div class="summary-item"><span class="label">Total Gap SA</span><span class="value neg" id="sumGapSA">0.0 M</span></div>
-    <div class="summary-item"><span class="label">Total Gap Funding</span><span class="value neg" id="sumGapFU">0.0 M</span></div>
+    <div class="summary-item"><span class="label">Total Gap CA</span><span class="value" id="sumGapCA">0.0 M</span></div>
+    <div class="summary-item"><span class="label">Total Gap SA</span><span class="value" id="sumGapSA">0.0 M</span></div>
+    <div class="summary-item"><span class="label">Total Gap Funding</span><span class="value" id="sumGapFU">0.0 M</span></div>
     <div class="summary-item"><span class="label">Avg Achievement</span><span class="value" id="avgAchieve">0.0%</span></div>
   </div>
--->
+
   <div class="params-grid" id="paramsContainer"></div>
 
   <div class="footer">
     💡 Data source: Sheet NTbl | Update hanya di tabel sumber<br>
-    📱 Optimized for Mobile & Web | Last update: 18 Mei 2026
+    📱 Optimized for Mobile & Web | Theme: <span id="themeLabel">Light</span>
   </div>
 
 <script>
@@ -262,10 +271,27 @@
 
   const coBranchSelect = document.getElementById('coBranchFilter');
   const branchSelect = document.getElementById('branchFilter');
+  const themeToggle = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  const html = document.documentElement;
 
-  // 🔄 CASCADING DROPDOWN LOGIC
-  coBranchSelect.addEventListener('change', function() {
-    updateBranchOptions(this.value);
+  // 🌗 THEME LOGIC
+  function setTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    themeToggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    themeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
+  }
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  setTheme(savedTheme);
+  themeToggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  // 🔄 CASCADING DROPDOWN
+  coBranchSelect.addEventListener('change', () => {
+    updateBranchOptions(coBranchSelect.value);
     renderDashboard();
   });
   branchSelect.addEventListener('change', renderDashboard);
@@ -276,13 +302,13 @@
     const uniqueBranches = [...new Set(filtered.map(d => d.br))].sort();
     uniqueBranches.forEach(br => {
       const opt = document.createElement('option');
-      opt.value = br;
-      opt.textContent = br;
+      opt.value = br; opt.textContent = br;
       branchSelect.appendChild(opt);
     });
-    branchSelect.value = 'ALL'; // Reset ke ALL saat Co-Branch berubah
+    branchSelect.value = 'ALL';
   }
 
+  // 📊 CALCULATION & RENDER
   function calcMetrics(data) {
     return data.map(d => ({
       ...d,
@@ -335,7 +361,6 @@
   function renderDashboard() {
     const coBr = coBranchSelect.value;
     const br = branchSelect.value;
-    
     const calculatedData = calcMetrics(ntData);
     const total = aggregate(calculatedData, coBr, br);
     const container = document.getElementById('paramsContainer');
@@ -356,7 +381,7 @@
         <div class="achievement">
           <span class="label">${p.metrics[3].l}</span>
           <div class="value ${achClass}">${ach.toFixed(1)}%</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,ach)}%; background:${ach>=100?'#16a34a':ach>=50?'#f59e0b':'#dc2626'}"></div></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,ach)}%; background:${ach>=100?'var(--success)':ach>=50?'var(--warning)':'var(--danger)'}"></div></div>
         </div>
       `;
       container.appendChild(card);
@@ -371,10 +396,6 @@
     
     const avgAch = (total.achCA+total.achSA+total.achFU+total.achCon+total.achSME+total.achPH+total.achMDIN+total.achQRIS+total.achSLI+total.achCIF)/10;
     document.getElementById('avgAchieve').textContent = avgAch.toFixed(1) + '%';
-  }
-
-  function exportReport() {
-    alert("Fitur Export CSV/PDF bisa ditambahkan. Untuk sekarang, screenshot atau Print to PDF langsung dari browser sudah optimal.");
   }
 
   // Init
