@@ -27,13 +27,18 @@
     .theme-toggle:hover { background: rgba(255,255,255,0.25); }
     
     .filters { background: var(--card-bg); padding: 14px; border-radius: 12px; margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; box-shadow: var(--shadow); transition: background 0.3s, box-shadow 0.3s; }
-    /* Style khusus untuk selector dataset */
+    
+    /* Style khusus untuk selector dataset (Hidden by default) */
     .dataset-selector-container {
         grid-column: span 3;
         margin-bottom: 10px;
         padding-bottom: 10px;
         border-bottom: 1px dashed var(--border);
+        display: none; /* Tersembunyi sampai admin login */
+        animation: fadeIn 0.5s;
     }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
     .dataset-selector-container label {
         font-size: 0.75rem; color: var(--text-light); display: block; margin-bottom: 4px; font-weight: bold;
     }
@@ -66,7 +71,34 @@
     .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease, background 0.3s; }
     .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; margin-left: 6px; background: var(--tag-bg); color: var(--tag-text); transition: background 0.3s, color 0.3s; }
     .footer { text-align: center; padding: 20px 10px; color: var(--text-light); font-size: 0.75rem; margin-top: 20px; transition: color 0.3s; }
+    .footer-admin-link { cursor: pointer; text-decoration: underline; color: var(--accent); }
+    .footer-admin-link:hover { color: var(--btn-bg); }
     .tag.special { background: var(--warning); color: #0f172a; font-size: 0.65rem;padding: 2px 6px;}
+    
+    /* MODAL STYLE */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6); z-index: 9999;
+        display: none; justify-content: center; align-items: center;
+        backdrop-filter: blur(3px);
+    }
+    .modal-box {
+        background: var(--card-bg); padding: 24px; border-radius: 12px;
+        width: 90%; max-width: 320px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        border: 1px solid var(--border); text-align: center;
+    }
+    .modal-box h3 { margin-bottom: 16px; color: var(--header-bg); }
+    .modal-input {
+        width: 100%; padding: 10px; margin-bottom: 12px;
+        border: 1px solid var(--border); border-radius: 6px;
+        background: var(--bg); color: var(--text);
+    }
+    .modal-btn {
+        width: 100%; padding: 10px; background: var(--btn-bg); color: white;
+        border: none; border-radius: 6px; cursor: pointer; font-weight: bold;
+    }
+    .modal-error { color: var(--danger); font-size: 12px; margin-top: 8px; display: none; }
+
     @media (max-width: 600px) { .filters { grid-template-columns: 1fr; } .dataset-selector-container { grid-column: span 1; } .params-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -80,9 +112,9 @@
 </div>
 
 <div class="filters">
-  <!-- DATASET SELECTOR -->
-  <div class="dataset-selector-container">
-    <label>📂 PILIH PERIODE DATA (ADMIN):</label>
+  <!-- DATASET SELECTOR (Hanya muncul setelah login admin) -->
+  <div class="dataset-selector-container" id="adminPanel">
+    <label>📂 ADMIN: PILIH PERIODE DATA:</label>
     <select id="datasetSelector" onchange="loadSelectedDataset()">
         <option value="">Memuat daftar data...</option>
     </select>
@@ -102,12 +134,25 @@
 </div>
   
   <div class="params-grid" id="paramsContainer"></div>
-  <div class="footer">💡 Update data via config.json & GitHub | 📱 Optimized for Mobile & Web | Theme: <span id="themeLabel">Light</span>| 📱 Made by Love - RBPM</div>
+  
+  <div class="footer">
+    💡 <span class="footer-admin-link" onclick="openAdminModal()" title="Klik untuk Update Data">Update data di bagian script HTML</span> | 
+    📱 Optimized for Mobile & Web | Theme: <span id="themeLabel">Light</span>| 📱 Made by Love - RBPM
+  </div>
+
+  <!-- MODAL LOGIN ADMIN -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-box">
+        <h3>🔐 Admin Access</h3>
+        <input type="text" id="adminUser" class="modal-input" placeholder="Username">
+        <input type="password" id="adminPass" class="modal-input" placeholder="Password">
+        <button class="modal-btn" onclick="checkAdminLogin()">Masuk</button>
+        <div id="loginError" class="modal-error">Username atau Password salah!</div>
+        <div style="margin-top:10px; font-size:11px; cursor:pointer; color:var(--text-light)" onclick="closeAdminModal()">Batal</div>
+    </div>
+  </div>
 
 <script>
-  // --- KONFIGURASI ADMIN ---
-  const ADMIN_PASS = ""; // Kosongkan jika tidak mau pakai password. Isi misal: "admin123"
-  
   let ntData = [];
   let availableDatasets = [];
   const coBranchSelect = document.getElementById('coBranchFilter');
@@ -115,15 +160,6 @@
   const themeToggle = document.getElementById('themeToggle');
   const themeLabel = document.getElementById('themeLabel');
   const html = document.documentElement;
-
-  // 1. CEK PASSWORD (Opsional)
-  if (ADMIN_PASS !== "") {
-      let inputPass = prompt("Masukkan Password Admin untuk mengakses Dashboard:");
-      if (inputPass !== ADMIN_PASS) {
-          document.body.innerHTML = "<div style='padding:50px; text-align:center; font-family:sans-serif;'><h1 style='color:red'>AKSES DITOLAK</h1><p>Password salah atau Anda tidak memiliki izin.</p></div>";
-          throw new Error("Unauthorized");
-      }
-  }
 
   function setTheme(theme) {
     html.setAttribute('data-theme', theme);
@@ -276,8 +312,34 @@
     });
   }
 
+  // --- FUNGSI ADMIN & MODAL ---
+  function openAdminModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+    document.getElementById('adminUser').value = '';
+    document.getElementById('adminPass').value = '';
+    document.getElementById('loginError').style.display = 'none';
+    document.getElementById('adminUser').focus();
+  }
+
+  function closeAdminModal() {
+    document.getElementById('loginModal').style.display = 'none';
+  }
+
+  function checkAdminLogin() {
+    const u = document.getElementById('adminUser').value;
+    const p = document.getElementById('adminPass').value;
+    
+    if (u === 'RBMP' && p === 'medan') {
+        closeAdminModal();
+        document.getElementById('adminPanel').style.display = 'block'; // Tampilkan dropdown
+        alert("✅ Akses Admin Diterima. Silakan pilih periode data.");
+        fetchConfig(); // Load daftar JSON
+    } else {
+        document.getElementById('loginError').style.display = 'block';
+    }
+  }
+
   // --- FUNGSI LOAD DATASET DINAMIS ---
-  
   function fetchConfig() {
     fetch('config.json')
         .then(r => {
@@ -287,16 +349,14 @@
         .then(config => {
             availableDatasets = config.datasets;
             populateDatasetSelector();
-            // Load default dataset (yang pertama di list)
-            if(availableDatasets.length > 0) {
+            // Jika ini pertama kali login, load data pertama
+            if(ntData.length === 0 && availableDatasets.length > 0) {
                 loadDatasetFile(availableDatasets[0].file, availableDatasets[0].label);
             }
         })
         .catch(err => {
-            console.warn("config.json tidak ditemukan, menggunakan fallback Dataset.json");
-            // Fallback jika config.json belum dibuat
-            document.getElementById('datasetSelector').innerHTML = '<option value="Dataset.json">Default Data</option>';
-            loadDatasetFile('Dataset.json', 'Default Data');
+            console.warn("config.json tidak ditemukan");
+            alert("Gagal memuat config.json. Pastikan file sudah ada di GitHub.");
         });
   }
 
@@ -371,8 +431,9 @@
     setTheme(localStorage.getItem('theme') || 'light');
     themeToggle.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
     
-    // Mulai dengan mengambil config
-    fetchConfig();
+    // Load default data langsung saat halaman dibuka (opsional, agar tidak kosong)
+    // Jika ingin wajib login dulu untuk lihat data, hapus baris di bawah ini
+    loadDatasetFile('Dataset.json', 'Default Data'); 
   });
 </script>
 </body>
